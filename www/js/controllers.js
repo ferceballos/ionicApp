@@ -1,4 +1,5 @@
-const site = 'localhost:3000';
+const site = 'http://localhost:3000';
+var user = [];
 
 angular.module('starter.controllers', [])
 
@@ -7,14 +8,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+
 })
 
 .controller('LoginCtrl', function($scope, $stateParams, $state, $http) {
@@ -37,15 +31,27 @@ angular.module('starter.controllers', [])
     console.log(site);
     console.log(mail);
     console.log(pwd);
-
     var resultado = [];
 
-    $http.get(site+'/users/login/'+mail+'/'+pwd)
-      .succes(function(resultado){
-        console.log(resultado);
-      });
+    var holeRoute = site+'/users/login/'+mail+'/'+pwd;
+    console.log(holeRoute);
 
-      console.log(resultado);
+    $http.get(site+'/users/login/'+mail+'/'+pwd).
+    then(function(resultado) {
+        vm.mail = resultado.data.msg;
+        vm.pwd = resultado.data.code;
+
+        if (resultado.data.code == 3){
+          //Credenciales correctas
+          user = resultado.data.user;
+          $state.go('app.signup'); 
+          console.log(user);
+          console.log(resultado.data.user);
+  
+        }
+    });
+
+
   }
 })
 

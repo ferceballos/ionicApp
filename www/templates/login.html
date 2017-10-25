@@ -1,0 +1,41 @@
+<ion-view hide-nav-bar="true">
+<ion-content  class="bgr-calm">
+  <br><br><br><br>
+  <div class="row">
+    <div class="col">
+      <h1 class="white-text padding">Hi, we are here to help you</h1>
+      <p class="white-text padding">Sign in into your account to get acces to all the cool futures this app haves.</p>
+    </div>
+  </div>
+
+  <br>
+   <form ng-submit="doLogin()">
+  <div class="list">
+    <label class="item item-input">
+      <span class="input-label">Correo</span>
+      <input class="grey-text" type="text" ng-model="vm.mail">
+    </label>
+    <label class="item item-input">
+      <span class="input-label">Contraseña</span>
+      <input class="grey-text" type="password" ng-model="vm.pwd">
+    </label>
+  </div>
+      </form>
+<br><br>
+
+  <center>
+    <div>
+      <button class="button button-outline button-light" ng-click="vm.doLogin()">Iniciar sesión</button>
+    </div><br>
+
+    <div>
+      <a class="button button-clear button-light small" ng-click="vm.goToSignup()">¿Aún no tiene cuenta? <b>Regístrese</b></a>
+    </div>
+
+    <div>
+        <button class="button button-clear button-light small recover">¿No recuerda su contraseña? <b>Recupérela</b></button>
+      </div>
+
+  </center>
+</ion-content>
+</ion-view>

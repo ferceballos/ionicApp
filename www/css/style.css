@@ -1,0 +1,37 @@
+.bgr-calm{
+    background-image: url("https://s-media-cache-ak0.pinimg.com/originals/9e/5b/d0/9e5bd06721ac2731e4cbd7c0bbf4b761.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    https://i.pinimg.com/736x/dd/c5/13/ddc5138c1cb701dd4bb1a356a8b39c12--iphone-backgrounds-phone-wallpapers.jpg
+}
+
+.bgr-waves{
+    background-image: url("https://i.pinimg.com/originals/d8/1d/c0/d81dc0d64429c915323ee767e93eb52f.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.white-text{
+    color: white !important; 
+}
+
+.grey-text{
+    color: #525252 !important; 
+}
+
+.small{
+    font-size: 90%;
+}
+
+.recover{
+    padding-bottom: -30 px;
+}
+
+.centered{
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.text-center{
+    text-align: center !important;
+}

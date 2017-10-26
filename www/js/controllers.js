@@ -44,10 +44,7 @@ angular.module('starter.controllers', [])
         if (resultado.data.code == 3){
           //Credenciales correctas
           user = resultado.data.user;
-          $state.go('app.signup'); 
-          console.log(user);
-          console.log(resultado.data.user);
-  
+          $state.go('app.browse'); 
         }
     });
 

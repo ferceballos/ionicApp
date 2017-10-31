@@ -62,6 +62,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
 
+    .state('app.content', {
+      url: '/content',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/chat-content.html',
+          controller: 'ContentCtrl as vm'
+        }
+      }
+    })
+
         
     .state('app.signup', {
       url: '/signup',
@@ -83,5 +93,5 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/app/content');
 });

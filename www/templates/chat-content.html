@@ -1,0 +1,96 @@
+<!-- Esta vista representa el contenido de una conversación (O ticket) -->
+
+<ion-view hide-nav-bar="true" title="Ticket 354">
+        <div class="bar bar-header">
+                    <button class="smaller bluedeep button icon ion-android-arrow-back "></button>
+                    <div class="h1 bluedeep title">Ticket 341</div>
+                    <button class="smaller bluedeep button icon ion-edit" ng-click="vm.showEdit()"></button>
+                  </div>
+        
+    <ion-content class="bgr-bluegr">
+            <br><br>
+        <!-- Contenedor sobre el ticket -->
+        <div class="list card">
+            <div class="item item-avatar">
+                <img src="http://ionicframework.com/img/docs/mcfly.jpg">
+                <!-- Nombre de quien creo el ticket -->
+                <h2>Marty McFly</h2>
+                <!-- Fecha de emision -->
+                <p>November 05, 1955</p>
+            </div>
+
+            <div class="item item-body">
+                <!-- Asunto -->
+                <p>Hace tiempo que no entro a una biblioteca. Tenía la intención de pedir prestado un libro para una tarea.
+                    Me preguntaba ¿cuál es el proceso para pedir un libro?</p>
+                <p class="row">
+                    <!-- Calificacion -->
+                    <i class="icon ion-star"></i>
+                    <i class="icon ion-star"></i>
+                    <i class="icon ion-star"></i>
+                    <i class="icon ion-star"></i>
+                    <i class="icon ion-star"></i>
+                    <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
+                    <a href="#" class="col subdued cerrado right">CERRADO</a>
+                </p>
+            </div>
+        </div>
+
+        <center>  
+            <div class="divider"></div>   
+        </center>
+
+        <!-- Ejemplo de lo que seria un mensaje de otro -->
+        <div class="row ">
+            <div class="col card message-container">
+                <div class="item item-text-wrap message">
+                    Oh, casi lo olvido, también quisiera saber si tienen libros de biología
+                </div>
+            </div>
+            <div class="col col-10 "></div>
+        </div>
+
+        <!-- Ejemplo de un mensaje enviado por uno mismo (El usuario loggeado) -->
+        <div class="row ">
+            <div class="col col-10 "></div>
+            <div class="col card owner-container">
+                <div class="item item-text-wrap owner">
+                    Sólo necesitamos que traigas tu credencial de la universidad
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejemplo de un mensaje enviado por uno mismo (El usuario loggeado) -->
+        <div class="row ">
+            <div class="col col-10 "></div>
+            <div class="col card owner-container">
+                <div class="item item-text-wrap owner">
+                    Claro que tenemos una sección de biología, seguro encontrarás lo que estás buscando
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- Ejemplo de lo que seria un mensaje de otro -->
+        <div class="row ">
+            <div class="col card message-container">
+                <div class="item item-text-wrap message">
+                    ¡Muchas gracias!
+                </div>
+            </div>
+            <div class="col col-10 "></div>
+        </div>
+
+
+
+    <br><br>
+    </ion-content>
+    <div class="bar bar-footer item-input-inset">
+        <label class="item-input-wrapper sender">
+            <input type="text" placeholder="Escriba un mensaje...">
+        </label>
+        <button class="button button-icon icon ion-android-send blue">
+        </button>
+    </div>
+</ion-view>

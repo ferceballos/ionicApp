@@ -3752,7 +3752,7 @@ function($ionicTemplateLoader, $ionicBackdrop, $q, $timeout, $rootScope, $ionicB
         onTap: function() { return false; }
       }, {
         text: opts.okText || 'OK',
-        type: opts.okType || 'button-positive',
+        type: opts.okType || 'okr',
         onTap: function() { return true; }
       }]
     }, opts || {}));

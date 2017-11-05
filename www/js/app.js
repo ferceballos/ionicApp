@@ -32,16 +32,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
-  
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
 
   .state('app.browse', {
       url: '/browse',
@@ -62,7 +52,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
 
-        
+    .state('app.ticket', {
+      url: '/ticket',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/ticket.html'
+        }
+      }
+    })
+
     .state('app.signup', {
       url: '/signup',
       views: {
@@ -72,6 +70,36 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+
+    .state('app.recovery', {
+      url: '/recovery',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/recovery.html',
+          controller: 'RecoveryCtrl as vm'
+        }
+      }
+    })
+
+    .state('app.student', {
+      url: '/student',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/student.html',
+          controller: 'StudentCtrl as vm'
+        }
+      }
+    })
+    .state('app.newTicket', {
+      url: '/newTicket',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/newTicket.html',
+          controller: 'newTicketCtrl as vm'
+        }
+      }
+    })
+
 
   .state('app.single', {
     url: '/playlists/:playlistId',

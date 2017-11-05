@@ -1,0 +1,46 @@
+<ion-view hide-nav-bar="true">
+  <ion-nav-bar class="bar-stable bar-student" style="display:inline-block">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear" menu-toggle="left">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+<ion-content class="back-recovery">
+  <br><br><br><br>
+  <div class="row">
+    <div class="col">
+        <center>
+
+        </center>
+      <p class="white-text padding h1-recovery">Recupera tu cuenta</p>
+    </div>
+  </div>
+
+  <br>
+   <form ng-submit="doLogin()">
+  <div class="list">
+    <label class="item item-input">
+      <span class="input-label">Ingrese su correo</span>
+      <input class="grey-text" type="text" ng-model="vm.mail">
+    </label>
+    <span class="input-label label-mail">Le enviaremos un correo de recuperación</span>
+  </div>
+      </form>
+<br><br>
+
+  <center>
+
+    <button class="button button-full" style="background-color: #00838f; color: white">
+        Enviar correo de recuperación
+      </button>
+
+    <div>
+      <a class="button button-clear button-light small" ng-click="vm.goToSignup()">¿Aún no tiene cuenta? <b>Regístrese</b></a>
+    </div>
+
+  </center>
+</ion-content>
+</ion-view>

@@ -3,8 +3,8 @@
   <br><br><br><br>
   <div class="row">
     <div class="col">
-      <h1 class="white-text padding">Hi, we are here to help you</h1>
-      <p class="white-text padding">Sign in into your account to get acces to all the cool futures this app haves.</p>
+      <h1 class="white-text padding">Mi Biblio</h1>
+      <p class="white-text padding">Bienvenido a la App de consultas #1 </p>
     </div>
   </div>
 
@@ -13,11 +13,11 @@
   <div class="list">
     <label class="item item-input">
       <span class="input-label">Correo</span>
-      <input class="grey-text" type="text" ng-model="vm.mail">
+      <input class="grey-text" type="text" placeholder="profe@ucol.mx" ng-model="vm.mail">
     </label>
     <label class="item item-input">
       <span class="input-label">Contraseña</span>
-      <input class="grey-text" type="password" ng-model="vm.pwd">
+      <input class="grey-text" type="password" placeholder="1234" ng-model="vm.pwd">
     </label>
   </div>
       </form>
@@ -34,7 +34,7 @@
     </div>
 
     <div>
-        <button class="button button-clear button-light small recover">¿No recuerda su contraseña? <b>Recupérela</b></button>
+        <button class="button button-clear button-light small recover" ng-click="vm.goToRecovery()">¿No recuerda su contraseña? <b>Recupérela</b></button>
       </div>
 
   </center>

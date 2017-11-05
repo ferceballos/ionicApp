@@ -1,7 +1,7 @@
 .bgr-calm{
     /*background-image: url("https://s-media-cache-ak0.pinimg.com/originals/9e/5b/d0/9e5bd06721ac2731e4cbd7c0bbf4b761.jpg");*/
     /*background-image: url("../img/blue.jpg");*/
-    background-image: url("http://media.idownloadblog.com/wp-content/uploads/2016/09/space-night-sky-star-dark-33-iphone-7-wallpaper-576x1024.jpg"); 
+    background-image: url("http://media.idownloadblog.com/wp-content/uploads/2016/09/space-night-sky-star-dark-33-iphone-7-wallpaper-576x1024.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -11,13 +11,18 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+.back-recovery{
+    background-image: url("../img/image-half-two.png") !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
 .white-text{
-    color: white !important; 
+    color: white !important;
 }
 
 .grey-text{
-    color: #525252 !important; 
+    color: #525252 !important;
 }
 
 .small{
@@ -35,4 +40,31 @@
 
 .text-center{
     text-align: center !important;
+}
+.view-container{
+    background-image: url("../img/back.jpg") !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.label-mail{
+  width: 100%;
+  color: white;
+  display: inline;
+}
+.h1-recovery{
+  text-align: center;
+  font-size: 2em;
+}
+.ticket-wrapper{
+  color: white;
+  padding: 10px;
+  padding-top: 60px;
+  text-align:center;
+}
+.txt-back{
+  text-align: left;
+}
+.tickets-title{
+  padding-top: 20px;
+  text-align: center;
 }

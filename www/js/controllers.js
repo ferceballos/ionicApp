@@ -12,15 +12,23 @@ angular.module('starter.controllers', [])
 })
 
 .controller('LoginCtrl', function($scope, $stateParams, $state, $http) {
-  var vm = this;    
+  var vm = this;
   var mail = "";
   var pwd = "";
-  
+
   vm.goToSignup = goToSignup;
   vm.doLogin = doLogin;
+  vm.goToStudent = goToStudent;
+  vm.goToRecovery = goToRecovery;
 
   function goToSignup(){
     $state.go('app.signup');
+  }
+  function goToStudent(){
+    $state.go('app.student');
+  }
+  function goToRecovery(){
+    $state.go('app.recovery');
   }
 
   function doLogin(){
@@ -38,13 +46,13 @@ angular.module('starter.controllers', [])
 
     $http.get(site+'/users/login/'+mail+'/'+pwd).
     then(function(resultado) {
-        vm.mail = resultado.data.msg;
-        vm.pwd = resultado.data.code;
-
+        console.log(resultado.data);
+        vm.mail="";
+        vm.pwd="";
         if (resultado.data.code == 3){
           //Credenciales correctas
           user = resultado.data.user;
-          $state.go('app.browse'); 
+          $state.go('app.student');
         }
     });
 
@@ -62,5 +70,35 @@ angular.module('starter.controllers', [])
     $state.go('app.login');
   }
 })
+
+.controller('RecoveryCtrl', function($scope, $stateParams, $state) {
+
+})
+.controller('newTicketCtrl', function($scope, $stateParams, $state) {
+
+})
+
+.controller('StudentCtrl', function($scope, $stateParams, $state) {
+  var vm = this;
+  var user = vm.user;
+  var message = vm.message;
+  console.log("recibi mensaje y mensaje es igual a"+ message);
+  vm.Logout = Logout ;
+  vm.goToTicket = goToTicket;
+  vm.goToNewTicket = goToNewTicket;
+
+  function goToTicket(){
+    $state.go('app.ticket');
+  }
+  function goToNewTicket(){
+    $state.go('app.newTicket');
+  }
+
+  function Logout(){
+    console.log("entre a la funcion");
+    $state.go('app.login');
+  }
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });

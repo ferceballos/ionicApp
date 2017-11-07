@@ -1,7 +1,10 @@
 <ion-view hide-nav-bar="true">
 
-<ion-content  class="bgr-waves">
-    <br><br><br><br>
+  <ion-content class="bgr-waves">
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="row">
       <div class="col">
         <h1 class="grey-text padding">El primer paso es crear una cuenta</h1>
@@ -12,39 +15,39 @@
     <br>
     <div class="list">
 
-          <label class="item item-input">
-                  <span class="input-label">Nombre</span>
-                  <input class="grey-text" type="text" ng-model="data.name">
-                </label>
-                <label class="item item-input">
-                      <span class="input-label">Apellido</span>
-                      <input class="grey-text" type="text" ng-model="data.lastName">
-                    </label>
+      <label class="item item-input">
+        <span class="input-label">Nombres</span>
+        <input class="grey-text" type="text" ng-model="vm.names">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Apellidos</span>
+        <input class="grey-text" type="text" ng-model="vm.lasts">
+      </label>
       <label class="item item-input">
         <span class="input-label">Correo</span>
-        <input class="grey-text" type="text" ng-model="data.email">
+        <input class="grey-text" type="text" ng-model="vm.email">
       </label>
       <label class="item item-input">
         <span class="input-label">Contraseña</span>
-        <input class="grey-text" type="password" ng-model="data.pwd">
+        <input class="grey-text" type="password" ng-model="vm.pwd">
       </label>
       <label class="item item-input item-select">
-          <div class="input-label">
-            Dependencia
-          </div>
-          <select>
-            <option>Blue</option>
-            <option selected>Green</option>
-            <option>Red</option>
-          </select>
-        </label>
+        <div class="input-label">
+          Dependencia
+        </div>
+        <select ng-model="vm.dep">
+          <option>Blue</option>
+          <option selected>Green</option>
+          <option>Red</option>
+        </select>
+      </label>
     </div>
 
     <center>
-        <br>
-      
+      <br>
+
       <div>
-        <button class="button button-outline button-light">Registrarse</button>
+        <button class="button button-outline button-light" ng-click="vm.doSignup()">Registrarse</button>
       </div>
 
       <br>

@@ -65,6 +65,9 @@
 
 /* Poppup shit */
 
+/*word-wrap: break-word;*/
+
+
  .button-positive{
      border-radius: 2em !important;
      max-width:90% !important;
@@ -76,10 +79,14 @@
     border-radius: 2em !important;
  
 }
-
+.popup-buttons .button{
+     border-radius:  2em !important;
+     max-width: 80%;
+     margin: auto !important;
+}
 
 .popup-buttons{
-    border-radius:  0em 0em 2em 2em;
+    border-radius:  0em 0em 0.5em 0.5em;
 }
 .popup-title {
         background-color: #363636 !important;
@@ -90,7 +97,7 @@
 }
 
 .popup-head{ 
-    border-radius: 2em 2em 0em 0em;
+    border-radius: 0.5em 0.5em 0em 0em;
     border-color: #363636 !important;
     background-color: #363636 !important;
 }

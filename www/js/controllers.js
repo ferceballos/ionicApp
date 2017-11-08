@@ -104,18 +104,37 @@ angular.module('starter.controllers', ['ionic'])
   })
 
 
-  .controller('SignupCtrl', function ($scope, $stateParams, $state, $ionicPopup) {
+  .controller('SignupCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup) {
     var vm = this;
     var names = "", lasts = "", mail = "", pwd = "", dep = "";
+    var depOptions = [];
+    
+    
 
     //Declaración de funciones
     vm.goToLogin = goToLogin;
     vm.doSignup = doSignup;
 
     //Funciones
-    function signupToast(string) {
-      var alertPopup = $ionicPopup.alert({
-        template: string
+
+    //Obtener todas las dependencias de la BD
+    var resultado = [];
+    $http.get(site + '/users/getDep').
+      then(function (resultado) {
+        var depOptions = resultado.data.dependencies;
+        console.log('devOptions', depOptions)
+
+        $scope.select = {
+          availableOptions: depOptions
+        };
+      });
+
+    function doAlert(string) {
+      var alertPopup = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
       });
 
       alertPopup.then(function (res) {
@@ -124,11 +143,14 @@ angular.module('starter.controllers', ['ionic'])
     }
 
     function doToast(string) {
-      var alertPopup = $ionicPopup.alert({
-        title: string
+      var toast = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
       });
 
-      alertPopup.then(function (res) {
+      toast.then(function (res) {
         //Do something
       });
     }
@@ -138,8 +160,7 @@ angular.module('starter.controllers', ['ionic'])
     }
 
     function doSignup() {
-      names = vm.names;
-      lasts = vm.lasts;
+      name = vm.name;
       mail = vm.email;
       pwd = vm.pwd;
       dep = vm.dep;
@@ -147,27 +168,31 @@ angular.module('starter.controllers', ['ionic'])
       console.log(names, lasts, mail, pwd, dep);
 
       if (names == undefined)
-        //doToast('Por favor, introduzca un nombre');
-        Materialize.toast('I am a toast!', 4000) ;
-      else if (lasts == undefined)
-        doToast('Por favor,  que introduzca un apellido');
+        doToast('Por favor, introduzca un nombre');
       else if (mail == undefined)
-        doToast('Por favor,  que itroduzca un correo');
+        doToast('Por favor,  ingrese un correo');
       else if (!mail.includes('@ucol.mx'))
         doToast('El correo debe contener \'@ucol.mx\' ');
       else if (pwd == undefined)
-        doToast('Por favor,  que defina una contraseña');
+        doToast('Defina una contraseña');
       else if (dep == undefined)
-        doToast('Por favor, eliga su dependencia (O la más cercana a usted)');
+        doToast('Eliga la dependencia a la que pertenece (o la más cercana a usted)');
 
       //Todos los datos han sido introducidos
       else {
-          signupToast('Cuenta creada exitosamente');
+        var resultado = [];
+        $http.get(site + '/users/signup/' + name + '/' + mail + '/' + pwd + '/1/' + dep).
+          then(function (resultado) {
+            if (resultado.data.code == 2) {
+              doToast(resultado.data.msg)
+            }
+
+            else if (resultado.data.code == 1) {
+              doAlert(resultado.data.msg)
+            }
+          });
+
       }
-
-
-
-
     }
 
   })

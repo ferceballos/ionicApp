@@ -19,13 +19,10 @@
     <div class="list">
 
       <label class="item item-input">
-        <span class="input-label">Nombres</span>
-        <input class="grey-text" type="text" ng-model="vm.names">
+        <span class="input-label">Nombre</span>
+        <input class="grey-text" type="text" ng-model="vm.name">
       </label>
-      <label class="item item-input">
-        <span class="input-label">Apellidos</span>
-        <input class="grey-text" type="text" ng-model="vm.lasts">
-      </label>
+
       <label class="item item-input">
         <span class="input-label">Correo</span>
         <input class="grey-text" type="text" ng-model="vm.email">
@@ -34,15 +31,13 @@
         <span class="input-label">Contraseña</span>
         <input class="grey-text" type="password" ng-model="vm.pwd">
       </label>
-      <label class="item item-input item-select">
+      <label class="item item-input item-select text-left">
         <div class="input-label">
           Dependencia
         </div>
-        <select ng-model="vm.dep">
-          <option>Blue</option>
-          <option selected>Green</option>
-          <option>Red</option>
-        </select>
+      <select name="repeatSelect" id="repeatSelect" ng-model="vm.dep">
+        <option ng-repeat="option in select.availableOptions" value="{{option.id}}">{{option.nombre}}</option>
+      </select>
       </label>
     </div>
 

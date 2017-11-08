@@ -67,6 +67,39 @@
     background-color: transparent !important;    
 }
 
+.teal{
+   background-color:  #00796b !important;
+}
+
+/* Float Button */
+
+.button-float{
+  width:   50px !important;
+  height: 50px !important;
+  background-color:  #00796b !important;
+  color:white !important;
+  z-index: 12 !important;
+  position: absolute !important; 
+  bottom: 30px !important;
+  right: 15px !important;
+  border-radius: 100% !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transition: 0.2s linear !important;
+  transition: 0.2s linear !important;
+  -webkit-transition-property: -webkit-transform, all !important;
+  transition-property: transform, all !important;
+
+}
+
+.button-float:hover{
+  -webkit-transform: translate3d(0, -1px, 0)  !important;
+  transform: translate3d(0, -1px, 0) !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: darken(#00796b, 10%) !important;
+}
+
 /* Poppup shit */
 
 /*word-wrap: break-word;*/

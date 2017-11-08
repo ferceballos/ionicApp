@@ -43,6 +43,15 @@ angular.module('starter.controllers', ['ionic'])
   .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $ionicActionSheet) {
     var vm = this;
 
+    reloadUniTickets();
+
+
+    //Obtener los reportes de un usuario
+    var resultado = [];
+    var depOptions = [];
+
+
+
     //Declarations of functions
     vm.goToUni = goToUni;
     vm.goToCreate = goToCreate;
@@ -50,6 +59,48 @@ angular.module('starter.controllers', ['ionic'])
     vm.showAddSheet = showAddSheet;
 
     //Functions
+
+    function reloadUniTickets(params) {
+      $http.get(site + '/tickets/getbyuser/' + user.id).
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            doToast(resultado.data.msg)
+
+          else {
+
+            var depOptions = resultado.data.ticketito;
+            console.log('devOptions', depOptions)
+
+
+            $scope.ticketsOfUni = {
+              availableOptions: depOptions
+            };
+            $scope.$apply();
+
+
+            console.log('avaliablaoptions', $scope.ticketsOfUni.availableOptions);
+
+
+          }
+        });
+    }
+
+
+    function doToast(string) {
+      var toast = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
+      });
+
+      toast.then(function (res) {
+        //Do something
+      });
+    }
+
     function goToUni() {
       $state.go('app.uni')
     }
@@ -91,6 +142,33 @@ angular.module('starter.controllers', ['ionic'])
     vm.showAddSheet = showAddSheet;
 
     //Functions
+
+    function reloadUniTickets(params) {
+      $http.get(site + '/tickets/getbyuser/' + user.id).
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            doToast(resultado.data.msg)
+
+          else {
+
+            var depOptions = resultado.data.ticketito;
+            console.log('devOptions', depOptions)
+
+
+            $scope.ticketsOfUni = {
+              availableOptions: depOptions
+            };
+            $scope.$apply();
+
+
+            console.log('avaliablaoptions', $scope.ticketsOfUni.availableOptions);
+
+
+          }
+        });
+    }
     function doToast(string) {
       var toast = $ionicPopup.show({
         title: string,
@@ -142,8 +220,12 @@ angular.module('starter.controllers', ['ionic'])
               doToast(resultado.data.msg)
 
             //Ticket creado con éxito
-            else if (resultado.data.code == 1)
-              $state.go('app.uni')
+            else if (resultado.data.code == 1) {
+              reloadUniTickets();
+              $state.go('app.uni');
+
+            }
+
           });
       }
     }

@@ -1,0 +1,60 @@
+<ion-view hide-nav-bar="true">
+    <!--     <div class="bar item-input-inset">
+        <label class="item-input-wrapper text-center">
+            <input type="text" placeholder="Escriba el asunto de su ticket" ng-model="searchHeader">
+        </label>
+    </div> -->
+
+    <div class="bar bar-header  owner">
+        <button class="button owner" ng-click="vm.showAddSheet()">
+            <i class="white-text icon ion-android-arrow-back"></i>
+        </button>
+        <div class="h1 title white-text">Crear un ticket</div>
+    </div>
+
+    <ion-content class="bgr-light-bluegr">
+
+        <div class="content ">
+            <div id="top-part" class="bgr-bluegr padding">
+                <br>
+                <div class=" padding">
+                    <img src="img/write/1.png" class="center">
+                </div>
+            </div>
+            <div id="bot-part" class="padding">
+
+                <div class="card padding">
+                    <div class="list">
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label b grey-text">Asunto</span>
+                            <input type="text" class="thick soft-grey-text" placeholder="Escriba un asunto breve" ng-model="vm.asunto">
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="card padding ">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label b grey-text">Mensaje</span>
+
+                        <textarea ng-model="vm.mensaje" placeholder="Explique con mayor detalle lo que necesita (puede dejar este cambio vacío si no es necesario explicar)"
+                            class="textArea soft-grey-text"></textarea>
+                    </label>
+                </div>
+
+                <div class="row">
+                    <div class="col"></div>
+                    <button class="button button-dark col" ng-click="vm.addTicket()">
+                        Enviar reporte
+                    </button>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </ion-content>
+
+</ion-view>

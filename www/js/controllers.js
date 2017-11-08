@@ -43,7 +43,22 @@ angular.module('starter.controllers', ['ionic'])
   .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $ionicActionSheet) {
     var vm = this;
 
-    $scope.showActionsheet = function () {
+    //Declarations of functions
+    vm.goToUni = goToUni;
+    vm.goToCreate = goToCreate;
+    vm.showActionSheet = showActionSheet;
+    vm.showAddSheet = showAddSheet;
+
+    //Functions
+    function goToUni() {
+      $state.go('app.uni')
+    }
+
+    function goToCreate(params) {
+      $state.go('app.addTicket');
+    }
+
+    function showActionSheet() {
       $ionicActionSheet.show({
         titleText: 'ActionSheet Example', buttons: [{ text: '<i class="icon ion-share"></i> Share' }, { text: '<i class="icon ion-arrow-move"></i> Move' },], destructiveText: 'Delete', cancelText: 'Cancel', cancel: function () {
           console.log('CANCELLED');
@@ -56,7 +71,105 @@ angular.module('starter.controllers', ['ionic'])
         }
       });
     };
+
+    function showAddSheet() {
+      $state.go('app.addTicket');
+    };
+
   })
+
+
+
+  .controller('uniAddTicketCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $ionicActionSheet) {
+    var vm = this;
+
+    //Declarations of functions
+    vm.goToUni = goToUni;
+    vm.goToCreate = goToCreate;
+    vm.addTicket = addTicket;
+    vm.showActionSheet = showActionSheet;
+    vm.showAddSheet = showAddSheet;
+
+    //Functions
+    function doToast(string) {
+      var toast = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
+      });
+
+      toast.then(function (res) {
+        //Do something
+      });
+    }
+
+    function goToUni() {
+      $state.go('app.uni')
+    }
+
+    function goToCreate(params) {
+      $state.go('app.addTicket');
+    }
+
+    function addTicket() {
+      var peti = vm.asunto;
+      var init = vm.mensaje;
+
+      // validar que exista un asunto
+      if (peti == undefined || init == "") {
+        doToast('El asunto es obligatorio');
+      }
+
+      else {
+        if (init == undefined || init == "")
+          init = "No fue necesario explicar más a fondo.";
+
+
+
+        var resultado = [];
+
+        $http.get(site + '/tickets/create/' + peti + '/' + init + '/' + user.id).
+          then(function (resultado) {
+            //Limpiar campos
+            vm.asunto = undefined;
+            vm.mensaje = undefined;
+
+            console.log(resultado.data.code);
+            console.log(resultado.data.msg);
+            //Problema al crear el ticket
+            if (resultado.data.code == 2)
+              doToast(resultado.data.msg)
+
+            //Ticket creado con éxito
+            else if (resultado.data.code == 1)
+              $state.go('app.uni')
+          });
+      }
+    }
+
+    function showActionSheet() {
+      $ionicActionSheet.show({
+        titleText: 'ActionSheet Example', buttons: [{ text: '<i class="icon ion-share"></i> Share' }, { text: '<i class="icon ion-arrow-move"></i> Move' },], destructiveText: 'Delete', cancelText: 'Cancel', cancel: function () {
+          console.log('CANCELLED');
+        }, buttonClicked: function (index) {
+          console.log('BUTTON CLICKED', index)
+          return true;
+        }, destructiveButtonClicked: function () {
+          console.log('DESTRUCT');
+          return true;
+        }
+      });
+    };
+
+    function showAddSheet() {
+      $state.go('app.addTicket');
+      //uniAddTicketCtrl
+    };
+
+  })
+
+
 
   .controller('LoginCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup) {
     var vm = this;

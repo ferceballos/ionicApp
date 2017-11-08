@@ -41,13 +41,23 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
-      //BEGIN - States for the common user (Universitario)
+      //BEGIN - States for the common user (Universitario)  addTicket
       .state('app.uni', {
         url: '/uni',
         views: {
           'menuContent': {
             templateUrl: 'templates/uniIndex.html',
             controller: 'uniIndexCtrl as vm'
+          }
+        }
+      })
+
+      .state('app.addTicket', {
+        url: '/addticket',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/uniAddTicket.html',
+            controller: 'uniAddTicketCtrl as vm'
           }
         }
       })

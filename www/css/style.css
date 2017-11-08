@@ -7,7 +7,29 @@
 }
 
 .bgr-bluegr{
-    background-color: #eceff1;    
+     background-color: #eceff1 ;    
+}
+
+.bgr-light-bluegr{
+    background-color: #f5f8fa ;    
+}
+
+.icon-blue{
+   color: #A6C6E8 !important;
+}
+
+.tab-item{
+    color: #CACBCD !important;
+}
+
+a.active{
+   color: #57A2FA !important;
+   border-bottom-color: #57A2FA !important;
+}
+
+.icon-title{
+
+color: #57A2FA !important;
 }
 
 .bgr-waves{
@@ -16,12 +38,37 @@
     background-repeat: no-repeat;
 }
 
+.center{
+    display: block;
+    margin: auto;
+}
+
+.icon-margin{
+    font-size: 10px !important;
+}
+
 .white-text{
     color: white !important; 
 }
 
+.less-white-text{
+     color: rgb(223, 223, 223) !important; 
+}
+
 .grey-text{
     color: #525252 !important; 
+}
+
+.soft-grey-text{
+        color: #868686 !important; 
+}
+
+.smaller-icon{
+    font-size: 10px !important;
+}
+
+.thick{
+    font-weight: 600 !important;
 }
 
 .content{
@@ -69,6 +116,16 @@
 
 .teal{
    background-color:  #00796b !important;
+}
+/* Styling ticket related stuff here */
+
+.b {
+    font-weight: bold !important;
+}
+
+.textArea{
+    height: 100px !important;
+    max-height: 165px !important;
 }
 
 /* Float Button */

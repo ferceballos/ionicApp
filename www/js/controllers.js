@@ -108,18 +108,24 @@ angular.module('starter.controllers', ['ionic'])
     var vm = this;
     var names = "", lasts = "", mail = "", pwd = "", dep = "";
 
-
-
-
-
     //Declaración de funciones
     vm.goToLogin = goToLogin;
     vm.doSignup = doSignup;
 
-    //Fucniones
-    function doToast(string) {
+    //Funciones
+    function signupToast(string) {
       var alertPopup = $ionicPopup.alert({
         template: string
+      });
+
+      alertPopup.then(function (res) {
+        goToLogin()
+      });
+    }
+
+    function doToast(string) {
+      var alertPopup = $ionicPopup.alert({
+        title: string
       });
 
       alertPopup.then(function (res) {
@@ -140,9 +146,26 @@ angular.module('starter.controllers', ['ionic'])
 
       console.log(names, lasts, mail, pwd, dep);
 
-      if (names == undefined) {
-        doToast('names está bacio men');
+      if (names == undefined)
+        //doToast('Por favor, introduzca un nombre');
+        Materialize.toast('I am a toast!', 4000) ;
+      else if (lasts == undefined)
+        doToast('Por favor,  que introduzca un apellido');
+      else if (mail == undefined)
+        doToast('Por favor,  que itroduzca un correo');
+      else if (!mail.includes('@ucol.mx'))
+        doToast('El correo debe contener \'@ucol.mx\' ');
+      else if (pwd == undefined)
+        doToast('Por favor,  que defina una contraseña');
+      else if (dep == undefined)
+        doToast('Por favor, eliga su dependencia (O la más cercana a usted)');
+
+      //Todos los datos han sido introducidos
+      else {
+          signupToast('Cuenta creada exitosamente');
       }
+
+
 
 
     }

@@ -65,35 +65,55 @@
 
 /* Poppup shit */
 
+ .button-positive{
+     border-radius: 2em !important;
+     max-width:90% !important;
+     margin: auto !important; 
+    }
+
 .popup {
     min-width: 85% !important;
     border-radius: 2em !important;
  
 }
 
-.popup-head{ 
-    border-radius: 2em 2em 0em 0em;
-background-color: white !important;
-}
+
 .popup-buttons{
     border-radius:  0em 0em 2em 2em;
-    background-color: white !important;
 }
 .popup-title {
-    color: rgb(74, 112, 148) ;
+        background-color: #363636 !important;
+
+       color: white !important;
+
     font-weight: bold;
 }
 
+.popup-head{ 
+    border-radius: 2em 2em 0em 0em;
+    border-color: #363636 !important;
+    background-color: #363636 !important;
+}
+
 .popup-body {
-    background-color: #eceff1 !important;
+    border-color: #363636 !important;
+    background-color: #363636 !important;
+    color: rgb(219, 219, 219) !important;
     text-align: center;
     position: relative;
 }
 
 .popup-button {
+           background-color: #363636 !important;
     overflow: inherit !important;
     text-align: center;
     position: relative;
+}
+
+.popup-buttons{
+    align-content: right;
+    color: #DBF55C;
+    background-color: #363636 !important;
 }
 
 .okr {

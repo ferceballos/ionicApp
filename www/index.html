@@ -25,6 +25,8 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -39,7 +41,13 @@
     <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script> 
 
     <script src="//code.ionicframework.com/contrib/ionic-contrib-frosted-glass/ionic.contrib.frostedGlass.js"></script>
+    <script> $(document).ready(function () {
+        $('.tooltipped').tooltip({ delay: 50 });
+      });
 
+
+      
+    </script>
   </head>
 
   <body ng-app="starter">

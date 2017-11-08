@@ -24,6 +24,10 @@
     color: #525252 !important; 
 }
 
+.content{
+    margin-top: 44px;
+}
+
 .small{
     font-size: 90%;
 }

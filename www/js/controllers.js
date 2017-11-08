@@ -40,6 +40,11 @@ angular.module('starter.controllers', ['ionic'])
 
   })
 
+  .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup) {
+    var vm = this;
+
+  })
+
   .controller('LoginCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup) {
     var vm = this;
     var mail = "";
@@ -49,55 +54,63 @@ angular.module('starter.controllers', ['ionic'])
     vm.doLogin = doLogin;
 
     // Functions
+    function doToast(string) {
+      var toast = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
+      });
+
+      toast.then(function (res) {
+        //Do something
+      });
+    }
+
     function goToSignup() {
       $state.go('app.signup');
     }
-
-
 
     function doLogin() {
 
       mail = vm.mail;
       pwd = vm.pwd;
 
-      console.log(site);
-      console.log(mail);
-      console.log(pwd);
       var resultado = [];
 
       $http.get(site + '/users/login/' + mail + '/' + pwd).
         then(function (resultado) {
-          vm.mail = resultado.data.msg;
-          vm.pwd = resultado.data.code;
+          vm.mail = "";
+          vm.pwd = "";
 
           //El correo no existe en la base de datos
-          if (resultado.data.code != 3) {
-            doToast(resultado.data.msg);
-          }
+          if (resultado.data.code != 3)
+            doToast(resultado.data.msg)
+          else if (resultado.data.code == 2)
+            doToast(resultado.data.msg)
 
           //Credenciales correctas
           else if (resultado.data.code == 3) {
-            user = resultado.data.user;
-            //Universitario
-            if (user.rol == 1) {
-              state.go('app.uni');
-            }
-            //Responsable
-            else if (user.rol == 2) {
-              state.go('app.res');
-            }
-            //Bibliotecario
-            else if (user.rol == 3) {
-              state.go('app.bib');
-            }
-            //Administrador
-            else if (user.rol == 4) {
-              state.go('app.adm');
-            }
+            user = resultado.data.user
 
-            else {
+            //Universitario
+            if (user.rol == 1)
+              $state.go('app.uni')
+
+            //Responsable
+            else if (user.rol == 2)
+              $state.go('app.res')
+
+            //Bibliotecario
+            else if (user.rol == 3)
+              $state.go('app.bib')
+
+            //Administrador
+            else if (user.rol == 4)
+              $state.go('app.adm')
+
+            else
               doToast('Ha ocurrido un problema al tratar de obtener su rol')
-            }
           }
         });
     }
@@ -108,8 +121,8 @@ angular.module('starter.controllers', ['ionic'])
     var vm = this;
     var names = "", lasts = "", mail = "", pwd = "", dep = "";
     var depOptions = [];
-    
-    
+
+
 
     //Declaración de funciones
     vm.goToLogin = goToLogin;

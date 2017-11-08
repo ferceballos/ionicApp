@@ -32,7 +32,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
-  
+
 
   .state('app.search', {
     url: '/search',
@@ -42,6 +42,19 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+
+  //BEGIN - States for the common user (Universitario)
+    .state('app.uni', {
+      url: '/uni',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/uniIndex.html',
+          controller: 'uniIndexCtrl as vm'
+        }
+      }
+    })
+
+
 
   .state('app.browse', {
       url: '/browse',

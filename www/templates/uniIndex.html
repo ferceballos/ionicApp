@@ -11,7 +11,7 @@
             <div class="list">
 
                 <!-- ng-repeat="x in names | filter : 'i'" -->
-                <a class="item item-avatar"  ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket ">
+                <a class="item item-avatar"  ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket | orderBy:'-folio'">
                     <img src="img/venkman.jpg">
                     <h2>{{option.asunto}}</h2>
                     <p>{{option.init}}</p>

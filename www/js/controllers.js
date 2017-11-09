@@ -40,7 +40,7 @@ angular.module('starter.controllers', ['ionic'])
 
   })
 
-  .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $ionicActionSheet) {
+  .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {
     var vm = this;
 
     reloadUniTickets();
@@ -74,14 +74,9 @@ angular.module('starter.controllers', ['ionic'])
             console.log('devOptions', depOptions)
 
 
-            $scope.ticketsOfUni = {
+            $rootScope.ticketsOfUni = {
               availableOptions: depOptions
             };
-            $scope.$apply();
-
-
-            console.log('avaliablaoptions', $scope.ticketsOfUni.availableOptions);
-
 
           }
         });
@@ -106,6 +101,7 @@ angular.module('starter.controllers', ['ionic'])
     }
 
     function goToCreate(params) {
+      $ionicViewSwitcher.nextDirection('forward');
       $state.go('app.addTicket');
     }
 
@@ -131,8 +127,10 @@ angular.module('starter.controllers', ['ionic'])
 
 
 
-  .controller('uniAddTicketCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $ionicActionSheet) {
+  .controller('uniAddTicketCtrl', function ($scope, $stateParams, $state, $http, $ionicViewSwitcher, $rootScope, $ionicPopup, $ionicActionSheet) {
     var vm = this;
+    console.log($rootScope.ticketsOfUni);
+    console.log($rootScope.ticketsOfUni.availableOptions);
 
     //Declarations of functions
     vm.goToUni = goToUni;
@@ -157,18 +155,13 @@ angular.module('starter.controllers', ['ionic'])
             console.log('devOptions', depOptions)
 
 
-            $scope.ticketsOfUni = {
+            $rootScope.ticketsOfUni = {
               availableOptions: depOptions
             };
-            $scope.$apply();
-
-
-            console.log('avaliablaoptions', $scope.ticketsOfUni.availableOptions);
-
-
           }
         });
     }
+
     function doToast(string) {
       var toast = $ionicPopup.show({
         title: string,
@@ -221,7 +214,12 @@ angular.module('starter.controllers', ['ionic'])
 
             //Ticket creado con éxito
             else if (resultado.data.code == 1) {
+              $ionicViewSwitcher.nextDirection('back');
+
               reloadUniTickets();
+              //$scope.$apply();
+
+
               $state.go('app.uni');
 
             }

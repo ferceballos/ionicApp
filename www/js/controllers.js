@@ -1,7 +1,6 @@
 const site = 'http://localhost:3000';
 var user = [];
 
-
 angular.module('starter.controllers', ['ionic'])
 
   .controller('AppCtrl', function () {
@@ -12,36 +11,110 @@ angular.module('starter.controllers', ['ionic'])
 
   })
 
-  .controller('ContentCtrl', function ($scope, $ionicPopup) {
+  .controller('ContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams) {
+
+    //Variables
     var vm = this;
+    var messageInput = "";
+    var folio = $stateParams.chatId;
 
-    vm.showEdit = showEdit;
+    getHeaderInformation()
 
-    // A confirm dialog
-    function showEdit() {
-      var editPopup = $ionicPopup.confirm({
-        title: 'Cambiar estado de ticket',
-        template: '<p>Aplique el estado correspondiente al ticket y confirme para guardar los cambios</p>' +
-        '<ion-list>' +
-        '<ion-radio ng-model="choice" ng-value="\'A\'">Choose A</ion-radio>' +
-        '<ion-radio ng-model="choice" ng-value="\'B\'">Choose B</ion-radio>' +
-        '</ion-list>'
+    
 
-      });
+    //Methods declaration
+    vm.goToMenu = goToMenu;
+    vm.uniEditTi = uniEditTi;
+    vm.sendMessage = sendMessage;
 
-      editPopup.then(function (res) {
-        if (res) {
-          console.log('You are sure');
-        } else {
-          console.log('You are not sure');
+    //Functions
+    function uniEditTi() {
+      $ionicActionSheet.show({
+        titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-android-star"></i> Calificar ticket' }, ], destructiveText: '<i class="icon ion-android-done"></i> Cerrar ticket', cancelText: 'Cancel', cancel: function () {
+          console.log('CANCELLED');
+        }, buttonClicked: function (index) {
+          console.log('BUTTON CLICKED', index)
+          
+          
+          
+          return true;
+        }, destructiveButtonClicked: function () {
+          console.log('DESTRUCT');
+
+          //Editar el status del ticket a cerrado
+
+          return true;
         }
       });
-    };
+    }
+
+    function sendMessage() {
+      messageInput = vm.messageInput;
+      console.log('Enviar mensaje '+ messageInput)
+      vm.messageInput = "";
+    }
+
+    function goToMenu() {
+      $state.go('app.uni')
+    }
+
+
+    getHeaderInformation()
+
+    function doToast(string) {
+      var toast = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
+      });
+
+      toast.then(function (res) {
+        //Do something
+      });
+    }
+
+    function getHeaderInformation() {
+      //    /getbyfolio/:folio
+      $http.get(site + '/tickets/getbyfolio/' + folio).
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            doToast(resultado.data.msg)
+
+          else {
+
+            console.log('resultado.data.ticketito', resultado.data.ticketito)
+
+            $rootScope.actualTicket = resultado.data.ticketito;
+            console.log('$rootScope.actualTicket', $rootScope.actualTicket)
+          }
+        });
+    }
+
+
+
+
 
   })
 
   .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {
     var vm = this;
+
+
+    function doToast(string) {
+      var toast = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
+      });
+
+      toast.then(function (res) {
+        //Do something
+      });
+    }
 
     reloadUniTickets();
 
@@ -58,9 +131,10 @@ angular.module('starter.controllers', ['ionic'])
     vm.showActionSheet = showActionSheet;
     vm.showAddSheet = showAddSheet;
 
-    //Functions
 
-    function reloadUniTickets(params) {
+
+    //Functions
+    function reloadUniTickets() {
       $http.get(site + '/tickets/getbyuser/' + user.id).
         then(function (resultado) {
           var allTickets = [];
@@ -286,8 +360,8 @@ angular.module('starter.controllers', ['ionic'])
 
       $http.get(site + '/users/login/' + mail + '/' + pwd).
         then(function (resultado) {
-          vm.mail = "";
-          vm.pwd = "";
+          vm.mail = undefined;
+          vm.pwd = undefined;
 
           //El correo no existe en la base de datos
           if (resultado.data.code != 3)

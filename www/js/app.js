@@ -52,6 +52,36 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
+      .state('app.uni-detail', {
+        url: '/uni/:chatId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/chat-content.html',
+            controller: 'ContentCtrl as vm'
+          }
+        }
+      })
+
+/*   .state('tab.chats', {
+        url: '/chats',
+        views: {
+          'tab-chats': {
+            templateUrl: 'templates/tab-chats.html',
+            controller: 'ChatsCtrl'
+          }
+        }
+      })
+
+      .state('tab.chat-detail', {
+        url: '/chats/:chatId',
+        views: {
+          'tab-chats': {
+            templateUrl: 'templates/chat-detail.html',
+            controller: 'ChatDetailCtrl'
+          }
+        }
+      }) */
+
       .state('app.addTicket', {
         url: '/addticket',
         views: {
@@ -81,15 +111,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
-      .state('app.content', {
-        url: '/content',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/chat-content.html',
-            controller: 'ContentCtrl as vm'
-          }
-        }
-      })
 
 
       .state('app.signup', {

@@ -1,10 +1,10 @@
 <!-- Esta vista representa el contenido de una conversación (O ticket) -->
 
-<ion-view hide-nav-bar="true" title="Ticket 354">
+<ion-view hide-nav-bar="true" title="Ticket {{actualTicket[0].folio}}">
         <div class="bar bar-header">
-                    <button class="smaller bluedeep button icon ion-android-arrow-back "></button>
-                    <div class="h1 bluedeep title">Ticket 341</div>
-                    <button class="smaller bluedeep button icon ion-edit" ng-click="vm.showEdit()"></button>
+                    <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
+                    <div class="h1 bluedeep title">Ticket {{actualTicket[0].folio}}</div>
+                    <button class="smaller bluedeep button icon ion-edit" ng-click="vm.uniEditTi()"></button>
                   </div>
         
     <ion-content class="bgr-bluegr">
@@ -13,16 +13,15 @@
         <div class="list card">
             <div class="item item-avatar">
                 <img src="http://ionicframework.com/img/docs/mcfly.jpg">
-                <!-- Nombre de quien creo el ticket -->
-                <h2>Marty McFly</h2>
+                <!-- Asunto del ticket -->
+                <h2>{{actualTicket[0].peticion}}</h2>
                 <!-- Fecha de emision -->
-                <p>November 05, 1955</p>
+                <p>{{actualTicket[0].fechaAlta}}</p>
             </div>
 
             <div class="item item-body">
-                <!-- Asunto -->
-                <p>Hace tiempo que no entro a una biblioteca. Tenía la intención de pedir prestado un libro para una tarea.
-                    Me preguntaba ¿cuál es el proceso para pedir un libro?</p>
+                <!-- Initial message -->
+                <p>{{actualTicket[0].init}}</p>
                 <p class="row">
                     <!-- Calificacion -->
                     <i class="icon ion-star"></i>
@@ -31,7 +30,7 @@
                     <i class="icon ion-star"></i>
                     <i class="icon ion-star"></i>
                     <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
-                    <a href="#" class="col subdued cerrado right">CERRADO</a>
+                    <a href="#" class="col subdued cerrado right">{{actualTicket[0].status}}</a>
                 </p>
             </div>
         </div>
@@ -88,9 +87,9 @@
     </ion-content>
     <div class="bar bar-footer item-input-inset">
         <label class="item-input-wrapper sender">
-            <input type="text" placeholder="Escriba un mensaje...">
+            <input type="text" placeholder="Escriba un mensaje..." ng-model="vm.messageInput">
         </label>
-        <button class="button button-icon icon ion-android-send blue">
+        <button class="button button-icon icon ion-android-send blue" ng-click="vm.sendMessage()">
         </button>
     </div>
 </ion-view>

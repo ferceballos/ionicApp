@@ -19,24 +19,64 @@ angular.module('starter.controllers', ['ionic'])
     var folio = $stateParams.chatId;
 
     getHeaderInformation()
+    getMessages()
 
-    
+
 
     //Methods declaration
     vm.goToMenu = goToMenu;
     vm.uniEditTi = uniEditTi;
     vm.sendMessage = sendMessage;
+    vm.getMessages = getMessages;
+    vm.sendMessage = sendMessage;
 
     //Functions
+    ///mod/message/:usr/:idt/:msg
+    function sendMessage() {
+      var resultado = [];
+      messageInput = vm.messageInput;
+      vm.messageInput = "";
+      console.log('user.id', user.id)
+      console.log('folio', folio)
+      console.log('messageInput', messageInput)
+      $http.get(site + '/tickets/mod/message/' + user.id + '/' + folio + '/' + messageInput).
+        then(function (resultado) {
+
+          console.log('Mensaje enviado')
+        });
+    }
+
+    function getMessages() {
+      var resultado = [];
+      $http.get(site + '/tickets/get/messages/' + folio).
+
+        then(function (resultado) {
+          console.log('folio', folio)
+
+          var allMessages = [];
+
+          if (resultado.data.code == 2)
+            doToast(resultado.data.msg)
+
+          else {
+
+            console.log('resultado.data.mensajitos', resultado.data.mensajitos)
+
+            allMessages = resultado.data.mensajitos;
+            console.log('allMessages', allMessages)
+          }
+        });
+    }
+
     function uniEditTi() {
       $ionicActionSheet.show({
-        titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-android-star"></i> Calificar ticket' }, ], destructiveText: '<i class="icon ion-android-done"></i> Cerrar ticket', cancelText: 'Cancel', cancel: function () {
+        titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-android-star"></i> Calificar ticket' },], destructiveText: '<i class="icon ion-android-done"></i> Cerrar ticket', cancelText: 'Cancel', cancel: function () {
           console.log('CANCELLED');
         }, buttonClicked: function (index) {
           console.log('BUTTON CLICKED', index)
-          
-          
-          
+
+
+
           return true;
         }, destructiveButtonClicked: function () {
           console.log('DESTRUCT');
@@ -48,18 +88,9 @@ angular.module('starter.controllers', ['ionic'])
       });
     }
 
-    function sendMessage() {
-      messageInput = vm.messageInput;
-      console.log('Enviar mensaje '+ messageInput)
-      vm.messageInput = "";
-    }
-
     function goToMenu() {
       $state.go('app.uni')
     }
-
-
-    getHeaderInformation()
 
     function doToast(string) {
       var toast = $ionicPopup.show({
@@ -84,10 +115,8 @@ angular.module('starter.controllers', ['ionic'])
             doToast(resultado.data.msg)
 
           else {
-
-            console.log('resultado.data.ticketito', resultado.data.ticketito)
-
             $rootScope.actualTicket = resultado.data.ticketito;
+
             console.log('$rootScope.actualTicket', $rootScope.actualTicket)
           }
         });

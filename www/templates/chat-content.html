@@ -1,14 +1,15 @@
 <!-- Esta vista representa el contenido de una conversación (O ticket) -->
 
 <ion-view hide-nav-bar="true" title="Ticket {{actualTicket[0].folio}}">
-        <div class="bar bar-header">
-                    <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
-                    <div class="h1 bluedeep title">Ticket {{actualTicket[0].folio}}</div>
-                    <button class="smaller bluedeep button icon ion-edit" ng-click="vm.uniEditTi()"></button>
-                  </div>
-        
+    <div class="bar bar-header">
+        <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
+        <div class="h1 bluedeep title">Ticket {{actualTicket[0].folio}}</div>
+        <button class="smaller bluedeep button icon ion-edit" ng-click="vm.uniEditTi()"></button>
+    </div>
+
     <ion-content class="bgr-bluegr">
-            <br><br>
+        <br>
+        <br>
         <!-- Contenedor sobre el ticket -->
         <div class="list card">
             <div class="item item-avatar">
@@ -35,55 +36,17 @@
             </div>
         </div>
 
-        <center>  
-            <div class="divider"></div>   
+        <center>
+            <div class="divider"></div>
         </center>
 
-        <!-- Ejemplo de lo que seria un mensaje de otro -->
-        <div class="row ">
-            <div class="col card message-container">
-                <div class="item item-text-wrap message">
-                    Oh, casi lo olvido, también quisiera saber si tienen libros de biología
-                </div>
-            </div>
-            <div class="col col-10 "></div>
-        </div>
 
-        <!-- Ejemplo de un mensaje enviado por uno mismo (El usuario loggeado) -->
-        <div class="row ">
-            <div class="col col-10 "></div>
-            <div class="col card owner-container">
-                <div class="item item-text-wrap owner">
-                    Sólo necesitamos que traigas tu credencial de la universidad
-                </div>
-            </div>
-        </div>
-
-        <!-- Ejemplo de un mensaje enviado por uno mismo (El usuario loggeado) -->
-        <div class="row ">
-            <div class="col col-10 "></div>
-            <div class="col card owner-container">
-                <div class="item item-text-wrap owner">
-                    Claro que tenemos una sección de biología, seguro encontrarás lo que estás buscando
-                </div>
-            </div>
-        </div>
+        <div ng-bind-html="vm.chatMessages">
 
         </div>
 
-        <!-- Ejemplo de lo que seria un mensaje de otro -->
-        <div class="row ">
-            <div class="col card message-container">
-                <div class="item item-text-wrap message">
-                    ¡Muchas gracias!
-                </div>
-            </div>
-            <div class="col col-10 "></div>
-        </div>
-
-
-
-    <br><br>
+        <br>
+        <br>
     </ion-content>
     <div class="bar bar-footer item-input-inset">
         <label class="item-input-wrapper sender">

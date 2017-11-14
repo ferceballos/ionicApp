@@ -11,17 +11,15 @@ angular.module('starter.controllers', ['ionic'])
 
   })
 
-  .controller('ContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams) {
+  .controller('ContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams, $interval) {
 
     //Variables
+    $state.reload();
     var vm = this;
     var messageInput = "";
-    var folio = $stateParams.chatId;
-
-    getHeaderInformation()
-    getMessages()
-
-
+    var allMessages = [];
+    var chatMessages = "";
+    var count = 0;
 
     //Methods declaration
     vm.goToMenu = goToMenu;
@@ -29,43 +27,105 @@ angular.module('starter.controllers', ['ionic'])
     vm.sendMessage = sendMessage;
     vm.getMessages = getMessages;
     vm.sendMessage = sendMessage;
+    // vm.stopLoading = stopLoading;
 
-    //Functions
-    ///mod/message/:usr/:idt/:msg
+
+    /* 
+        var nIntervId;
+        nIntervId = setInterval(loader, 1000);
+    
+    
+        function loader() {
+          console.log(count);
+          count++;
+        }
+    
+        function stopLoading() {
+          clearInterval(nIntervId);
+        } */
+
+
+
     function sendMessage() {
+      console.log('sendMessage start')
       var resultado = [];
       messageInput = vm.messageInput;
       vm.messageInput = "";
       console.log('user.id', user.id)
-      console.log('folio', folio)
+      console.log('Sending message to ', $stateParams.chatId)
       console.log('messageInput', messageInput)
-      $http.get(site + '/tickets/mod/message/' + user.id + '/' + folio + '/' + messageInput).
+      $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + messageInput).
         then(function (resultado) {
 
           console.log('Mensaje enviado')
+          allMessages = [];
+          getMessages();
         });
+
+      console.log('sendMessage end')
     }
 
     function getMessages() {
+      console.log('getMessages start')
       var resultado = [];
-      $http.get(site + '/tickets/get/messages/' + folio).
+      $http.get(site + '/tickets/get/messages/' + $stateParams.chatId).
 
         then(function (resultado) {
-          console.log('folio', folio)
 
-          var allMessages = [];
+          if (resultado.data.code == 2) {
+            allMessages = [];
+            console.log('No messages on ticket ', $stateParams.chatId)
+            console.log('No messages on ticket ', $stateParams.chatId)
+            processMeesages(allMessages);
+          }
 
-          if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
 
-          else {
-
-            console.log('resultado.data.mensajitos', resultado.data.mensajitos)
-
+          else if (resultado.data.mensajitos != undefined) {
+            allMessages = [];
             allMessages = resultado.data.mensajitos;
-            console.log('allMessages', allMessages)
+            console.log('allMessages on ' + $stateParams.chatId, allMessages)
+
+            processMeesages(allMessages);
           }
         });
+      console.log('getMessage end')
+    }
+
+    function processMeesages(recievedMessages) {
+      console.log('processMeesages start')
+      chatMessages = "";
+
+      for (var i = 0; i < recievedMessages.length; i++) {
+
+        //Message from the logged user
+        if (recievedMessages[i].userMsg == user.id) {
+          chatMessages += '<div class="row ">' +
+            '            <div class="col col-10 "></div>' +
+            '            <div class="col card owner-container">' +
+            '                <div class="item item-text-wrap owner">' +
+            recievedMessages[i].contenido +
+            '                </div>' +
+            '            </div>' +
+            '        </div>';
+        }
+
+        //Messages from the other user
+        else {
+          chatMessages += '<div class="row ">' +
+            '            <div class="col card message-container">' +
+            '                <div class="item item-text-wrap message">' +
+            recievedMessages[i].contenido +
+            '                </div>' +
+            '            </div>' +
+            '            <div class="col col-10 "></div>' +
+            '        </div>';
+        }
+      }
+
+      //Once the for loop ends (What's down didn't show up on the console)
+      vm.chatMessages = chatMessages;
+
+      console.log('processMeesages end')
     }
 
     function uniEditTi() {
@@ -89,7 +149,10 @@ angular.module('starter.controllers', ['ionic'])
     }
 
     function goToMenu() {
-      $state.go('app.uni')
+      $stateParams.chatId = undefined;
+      //vm.stopLoading();
+      chatMessages = "";
+      $state.go('app.uni');
     }
 
     function doToast(string) {
@@ -107,7 +170,7 @@ angular.module('starter.controllers', ['ionic'])
 
     function getHeaderInformation() {
       //    /getbyfolio/:folio
-      $http.get(site + '/tickets/getbyfolio/' + folio).
+      $http.get(site + '/tickets/getbyfolio/' + $stateParams.chatId).
         then(function (resultado) {
           var allTickets = [];
 
@@ -115,20 +178,25 @@ angular.module('starter.controllers', ['ionic'])
             doToast(resultado.data.msg)
 
           else {
+            $rootScope.actualTicket = undefined;
             $rootScope.actualTicket = resultado.data.ticketito;
-
-            console.log('$rootScope.actualTicket', $rootScope.actualTicket)
           }
         });
     }
 
-
+    //Methods that execute once the controller loads
+    getHeaderInformation()
+    console.log('$stateParams.chatId', $stateParams.chatId)
+    getMessages()
+    //loader()
 
 
 
   })
 
   .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {
+
+    $state.reload();
     var vm = this;
 
 
@@ -174,7 +242,6 @@ angular.module('starter.controllers', ['ionic'])
           else {
 
             var depOptions = resultado.data.ticketito;
-            console.log('devOptions', depOptions)
 
 
             $rootScope.ticketsOfUni = {
@@ -255,8 +322,6 @@ angular.module('starter.controllers', ['ionic'])
           else {
 
             var depOptions = resultado.data.ticketito;
-            console.log('devOptions', depOptions)
-
 
             $rootScope.ticketsOfUni = {
               availableOptions: depOptions
@@ -322,11 +387,8 @@ angular.module('starter.controllers', ['ionic'])
               reloadUniTickets();
               //$scope.$apply();
 
-
               $state.go('app.uni');
-
             }
-
           });
       }
     }
@@ -444,7 +506,6 @@ angular.module('starter.controllers', ['ionic'])
     $http.get(site + '/users/getDep').
       then(function (resultado) {
         var depOptions = resultado.data.dependencies;
-        console.log('devOptions', depOptions)
 
         $scope.select = {
           availableOptions: depOptions

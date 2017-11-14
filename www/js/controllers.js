@@ -14,7 +14,6 @@ angular.module('starter.controllers', ['ionic'])
   .controller('ContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams, $interval) {
 
     //Variables
-    $state.reload();
     var vm = this;
     var messageInput = "";
     var allMessages = [];
@@ -199,8 +198,6 @@ angular.module('starter.controllers', ['ionic'])
   })
 
   .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {
-
-    $state.reload();
     var vm = this;
 
 

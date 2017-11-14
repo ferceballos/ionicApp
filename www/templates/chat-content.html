@@ -1,9 +1,9 @@
 <!-- Esta vista representa el contenido de una conversación (O ticket) -->
 
-<ion-view hide-nav-bar="true" title="Ticket {{actualTicket[0].folio}}">
+<ion-view hide-nav-bar="true" title="Ticket {{vm.at.folio}}">
     <div class="bar bar-header">
         <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
-        <div class="h1 bluedeep title">Ticket {{actualTicket[0].folio}}</div>
+        <div class="h1 bluedeep title">Ticket {{vm.at.folio}}</div>
         <button class="smaller bluedeep button icon ion-edit" ng-click="vm.uniEditTi()"></button>
     </div>
 
@@ -15,14 +15,14 @@
             <div class="item item-avatar">
                 <img src="http://ionicframework.com/img/docs/mcfly.jpg">
                 <!-- Asunto del ticket -->
-                <h2>{{actualTicket[0].peticion}}</h2>
+                <h2>{{vm.at.peticion}}</h2>
                 <!-- Fecha de emision -->
-                <p>{{actualTicket[0].fechaAlta}}</p>
+                <p>{{vm.at.fechaAlta}}</p>
             </div>
 
             <div class="item item-body">
                 <!-- Initial message -->
-                <p>{{actualTicket[0].init}}</p>
+                <p>{{vm.at.init}}</p>
                 <p class="row">
                     <!-- Calificacion -->
                     <i class="icon ion-star"></i>
@@ -31,7 +31,7 @@
                     <i class="icon ion-star"></i>
                     <i class="icon ion-star"></i>
                     <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
-                    <a href="#" class="col subdued cerrado right">{{actualTicket[0].status}}</a>
+                    <a href="#" class="col subdued cerrado right">{{vm.at.status}}</a>
                 </p>
             </div>
         </div>

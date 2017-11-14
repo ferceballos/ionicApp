@@ -83,8 +83,6 @@ angular.module('starter.controllers', ['ionic'])
           else if (resultado.data.mensajitos != undefined) {
             allMessages = [];
             allMessages = resultado.data.mensajitos;
-            console.log('allMessages on ' + $stateParams.chatId, allMessages)
-
             processMeesages(allMessages);
           }
         });
@@ -94,6 +92,7 @@ angular.module('starter.controllers', ['ionic'])
     function processMeesages(recievedMessages) {
       console.log('processMeesages start')
       chatMessages = "";
+      vm.chatMessages = "";
 
       for (var i = 0; i < recievedMessages.length; i++) {
 
@@ -169,25 +168,30 @@ angular.module('starter.controllers', ['ionic'])
     }
 
     function getHeaderInformation() {
+      var getHeaderResultado = [];
       //    /getbyfolio/:folio
       $http.get(site + '/tickets/getbyfolio/' + $stateParams.chatId).
-        then(function (resultado) {
+        then(function (getHeaderResultado) {
           var allTickets = [];
 
-          if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
+          if (getHeaderResultado.data.code == 2)
+            doToast(getHeaderResultado.data.msg)
 
           else {
             $rootScope.actualTicket = undefined;
-            $rootScope.actualTicket = resultado.data.ticketito;
+            $rootScope.actualTicket = getHeaderResultado.data.ticketito;
+
+            vm.at = getHeaderResultado.data.ticketito[0];
           }
         });
     }
 
     //Methods that execute once the controller loads
-    getHeaderInformation()
+ 
     console.log('$stateParams.chatId', $stateParams.chatId)
+    
     getMessages()
+    getHeaderInformation()
     //loader()
 
 

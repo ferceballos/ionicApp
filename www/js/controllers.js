@@ -23,6 +23,7 @@ angular.module('starter.controllers', ['ionic'])
     //Methods declaration
     vm.goToMenu = goToMenu;
     vm.uniEditTi = uniEditTi;
+    vm.uniCalificar = uniCalificar;
     vm.sendMessage = sendMessage;
     vm.getMessages = getMessages;
     vm.sendMessage = sendMessage;
@@ -126,28 +127,8 @@ angular.module('starter.controllers', ['ionic'])
       console.log('processMeesages end')
     }
 
-    function uniEditTi() {
-      $ionicActionSheet.show({
-        titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-android-star"></i> Calificar ticket' },], destructiveText: '<i class="icon ion-android-done"></i> Cerrar ticket', cancelText: 'Cancel', cancel: function () {
-          console.log('CANCELLED');
-        }, buttonClicked: function (index) {
-          console.log('BUTTON CLICKED', index)
-
-
-
-          return true;
-        }, destructiveButtonClicked: function () {
-          console.log('DESTRUCT');
-
-          //Editar el status del ticket a cerrado
-
-          return true;
-        }
-      });
-    }
-
     function goToMenu() {
-      $stateParams.chatId = undefined;
+      //$stateParams.chatId = undefined;
       //vm.stopLoading();
       chatMessages = "";
       $state.go('app.uni');
@@ -180,21 +161,91 @@ angular.module('starter.controllers', ['ionic'])
             $rootScope.actualTicket = undefined;
             $rootScope.actualTicket = getHeaderResultado.data.ticketito;
 
+            if ($rootScope.actualTicket[0].rate == undefined) {
+              vm.rate = "<p>Sin calificar</p>";
+            }
+            else {
+              vm.rate = '<p>' + $rootScope.actualTicket[0].rate + ' <i class="icon ion-star"></i></p> ';
+            }
+
+
             vm.at = getHeaderResultado.data.ticketito[0];
           }
         });
     }
 
+
+
+
+
     //Methods that execute once the controller loads
- 
+
     console.log('$stateParams.chatId', $stateParams.chatId)
-    
+    //Here the chatId gets life
+
+
     getMessages()
     getHeaderInformation()
     //loader()
 
 
 
+    function uniEditTi() {
+      $ionicActionSheet.show({
+        titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-android-star"></i> Calificar ticket' },], destructiveText: '<i class="icon ion-android-done"></i> Cerrar ticket', cancelText: 'Cancel', cancel: function () {
+          console.log('CANCELLED');
+        }, buttonClicked: function (index) {
+          console.log('BUTTON CLICKED', index)
+          uniCalificar()
+
+
+
+          return true;
+        }, destructiveButtonClicked: function () {
+          console.log('$stateParams.chatId', $stateParams.chatId)
+          console.log('DESTRUCT');
+          var resultado = [];
+          //Editar el status del ticket a cerrado
+
+          $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/3').
+            then(function (resultado) {
+              if (resultado.data.code == 2) {
+                doToast(resultado.data.msg)
+              }
+
+              else {
+                getHeaderInformation()
+              }
+            });
+          return true;
+
+        }
+      });
+    }
+
+    function uniCalificar() {
+      $ionicActionSheet.show({
+        titleText: 'Califique el servicio dado', buttons: [{ text: '1' }, { text: '2' }, { text: '3' }, { text: '4' }, { text: '5' },], cancelText: 'Cancel', cancel: function () {
+          console.log('CANCELLED');
+        }, buttonClicked: function (index) {
+          console.log('BUTTON CLICKED', index)
+          var resultado = [];
+
+          console.log('$stateParams.chatId', $stateParams.chatId);
+          $http.get(site + '/tickets/mod/rate/' + $stateParams.chatId + '/' + (index + 1)).
+            then(function (resultado) {
+              if (resultado.data.code == 2) {
+                doToast(resultado.data.msg)
+              }
+
+              else {
+                getHeaderInformation()
+              }
+            });
+          return true;
+        }
+      });
+    }
   })
 
   .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {

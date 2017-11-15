@@ -23,16 +23,16 @@
             <div class="item item-body">
                 <!-- Initial message -->
                 <p>{{vm.at.init}}</p>
-                <p class="row">
-                    <!-- Calificacion -->
-                    <i class="icon ion-star" ng-repeat="i in stars></i>
-                    <i class="icon ion-star"></i>
-                    <i class="icon ion-star"></i>
-                    <i class="icon ion-star"></i>
-                    <i class="icon ion-star"></i>
-                    <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
-                    <a href="#" class="col subdued cerrado right">{{vm.at.status}}</a>
-                </p>
+                    <div class="row">
+                        <!-- Calificacion -->
+                        <span class="col subdued left" ng-bind-html="vm.rate"></span>
+                        <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
+                        <span class="col subdued right">
+                            <p href="#"  class=" cerrado right">{{vm.at.status}}</p>
+                        </span>
+                    </div>
+
+
             </div>
         </div>
 

@@ -300,8 +300,7 @@ angular.module('starter.controllers', ['ionic'])
 
   .controller('uniAddTicketCtrl', function ($scope, $stateParams, $state, $http, $ionicViewSwitcher, $rootScope, $ionicPopup, $ionicActionSheet) {
     var vm = this;
-    console.log($rootScope.ticketsOfUni);
-    console.log($rootScope.ticketsOfUni.availableOptions);
+
 
     //Declarations of functions
     vm.goToUni = goToUni;

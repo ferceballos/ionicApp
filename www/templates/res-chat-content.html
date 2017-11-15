@@ -1,0 +1,58 @@
+<!-- Esta vista representa el contenido de una conversación (O ticket) -->
+
+<ion-view hide-nav-bar="true" title="Ticket {{vm.at.folio}}">
+    <div class="bar bar-header">
+        <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
+        <div class="h1 bluedeep title">Ticket {{vm.at.folio}}</div>
+        <button class="smaller bluedeep button icon ion-edit" ng-click="vm.EditTi()"></button>
+    </div>
+
+    <ion-content class="bgr-bluegr">
+        <br>
+        <br>
+        <!-- Contenedor sobre el ticket -->
+        <div class="list card">
+            <div class="item item-avatar">
+                <img src="img/mcfly.jpg">
+                <!-- Asunto del ticket -->
+                <h2>{{vm.at.peticion}}</h2>
+                <!-- Fecha de emision -->
+                <p>{{vm.at.fechaAlta}}</p>
+            </div>
+
+            <div class="item item-body">
+                <!-- Initial message -->
+                <p>{{vm.at.init}}</p>
+                    <div class="row">
+                        <!-- Calificacion -->
+                        <span class="col subdued left" ng-bind-html="vm.rate"></span>
+                        <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
+                        <span class="col subdued right">
+                            <p href="#"  class=" cerrado right">{{vm.at.status}}</p>
+                        </span>
+                    </div>
+
+
+            </div>
+        </div>
+
+        <center>
+            <div class="divider"></div>
+        </center>
+
+
+        <div ng-bind-html="vm.chatMessages">
+
+        </div>
+
+        <br>
+        <br>
+    </ion-content>
+    <div class="bar bar-footer item-input-inset">
+        <label class="item-input-wrapper sender">
+            <input type="text" placeholder="Escriba un mensaje..." ng-model="vm.messageInput">
+        </label>
+        <button class="button button-icon icon ion-android-send blue" ng-click="vm.sendMessage()">
+        </button>
+    </div>
+</ion-view>

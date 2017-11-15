@@ -62,26 +62,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
-/*   .state('tab.chats', {
-        url: '/chats',
-        views: {
-          'tab-chats': {
-            templateUrl: 'templates/tab-chats.html',
-            controller: 'ChatsCtrl'
-          }
-        }
-      })
-
-      .state('tab.chat-detail', {
-        url: '/chats/:chatId',
-        views: {
-          'tab-chats': {
-            templateUrl: 'templates/chat-detail.html',
-            controller: 'ChatDetailCtrl'
-          }
-        }
-      }) */
-
       .state('app.addTicket', {
         url: '/addticket',
         views: {
@@ -101,6 +81,62 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
+      //STATES DEL RESPONSABLE
+      .state('app.res', {
+        url: '/res',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/resIndex.html',
+            controller: 'resIndexCtrl as vm'
+          }
+        }
+      })
+
+      .state('app.addPeople', {
+        url: '/addPeople',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/resAddPeople.html',
+            controller: 'resAddPeopleCtrl as vm'
+          }
+        }
+      })
+
+      
+
+      .state('app.res-detail', {
+        url: '/res/:chatId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/res-chat-content.html',
+            controller: 'ResContentCtrl as vm'
+          }
+        }
+      })
+
+      //STATES DEL BIBLIOTECARIO
+      .state('app.bib', {
+        url: '/bib',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/bibIndex.html',
+            controller: 'bibIndexCtrl as vm'
+          }
+        }
+      })
+
+            //STATES DEL ADMINISTRADOR
+            .state('app.adm', {
+              url: '/adm',
+              views: {
+                'menuContent': {
+                  templateUrl: 'templates/admIndex.html',
+                  controller: 'admIndexCtrl as vm'
+                }
+              }
+            })
+
+
       .state('app.login', {
         url: '/login',
         views: {
@@ -110,6 +146,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           }
         }
       })
+
+
 
 
 

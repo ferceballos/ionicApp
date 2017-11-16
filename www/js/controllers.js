@@ -432,7 +432,7 @@ angular.module('starter.controllers', ['ionic'])
 
     function EditTi() {
       $ionicActionSheet.show({
-        titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-android-open"></i> Abrir' }, { text: '<i class="icon ion-android-done"></i> Cerrar' }, { text: '<i class="icon ion-person"></i> Asignar' }, { text: '<i class="icon ion-university"></i> Transferir' },], cancelText: 'Cancel', cancel: function () {
+        titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-android-open"></i> Abrir' }, { text: '<i class="icon ion-android-done"></i> Cerrar' }, { text: '<i class="icon ion-android-person"></i> Asignar' }, { text: '<i class="icon ion-university"></i> Transferir' },], cancelText: 'Cancel', cancel: function () {
           console.log('CANCELLED');
         }, buttonClicked: function (index) {
           console.log('BUTTON CLICKED', index)

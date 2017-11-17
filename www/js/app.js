@@ -102,7 +102,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
-      
+
 
       .state('app.res-detail', {
         url: '/res/:chatId',
@@ -116,6 +116,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
       //STATES DEL BIBLIOTECARIO
       .state('app.bib', {
+        cache: false,
         url: '/bib',
         views: {
           'menuContent': {
@@ -125,16 +126,26 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
-            //STATES DEL ADMINISTRADOR
-            .state('app.adm', {
-              url: '/adm',
-              views: {
-                'menuContent': {
-                  templateUrl: 'templates/admIndex.html',
-                  controller: 'admIndexCtrl as vm'
-                }
-              }
-            })
+      .state('app.bib-detail', {
+        url: '/bib/:chatId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/bib-chat-content.html',
+            controller: 'BibContentCtrl as vm'
+          }
+        }
+      })
+
+      //STATES DEL ADMINISTRADOR
+      .state('app.adm', {
+        url: '/adm',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/admIndex.html',
+            controller: 'admIndexCtrl as vm'
+          }
+        }
+      })
 
 
       .state('app.login', {

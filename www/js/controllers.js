@@ -31,33 +31,33 @@ angular.module('starter.controllers', ['ionic'])
     vm.stopLoading = stopLoading;
 
 
-    
-        var nIntervId;
-        nIntervId = setInterval(loader, 1000);
-    
-    
-        function loader() {
-          console.log(count);
-          count++;
-          getMessages()
-          getHeaderInformation()
-        }
-    
-        function stopLoading() {
-          clearInterval(nIntervId);
-        } 
+
+    var nIntervId;
+    nIntervId = setInterval(loader, 1000);
+
+
+    function loader() {
+      console.log(count);
+      count++;
+      getMessages()
+      getHeaderInformation()
+    }
+
+    function stopLoading() {
+      clearInterval(nIntervId);
+    }
 
 
 
     function sendMessage() {
       console.log('sendMessage start')
       var resultado = [];
-      messageInput = encodeURIComponent(vm.messageInput) ;
+      messageInput = encodeURIComponent(vm.messageInput);
       vm.messageInput = "";
       console.log('user.id', user.id)
       console.log('Sending message to ', $stateParams.chatId)
       console.log('messageInput', messageInput)
-      $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + messageInput ).
+      $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + messageInput).
         then(function (resultado) {
 
           console.log('Mensaje enviado')
@@ -158,7 +158,7 @@ angular.module('starter.controllers', ['ionic'])
           var allTickets = [];
 
           if (getHeaderResultado.data.code == 2)
-            doToast(getHeaderResultado.data.msg)
+            console.log(getHeaderResultado.data.msg)
 
           else {
             $rootScope.actualTicket = undefined;
@@ -250,6 +250,273 @@ angular.module('starter.controllers', ['ionic'])
       });
     }
   })
+
+
+
+  .controller('BibContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams, $interval) {
+
+    //Variables
+    var vm = this;
+    var messageInput = "";
+    var allMessages = [];
+    var chatMessages = "";
+    var count = 0;
+
+    //Methods declaration
+    vm.goToMenu = goToMenu;
+    vm.EditTi = EditTi;
+    vm.uniCalificar = uniCalificar;
+    vm.sendMessage = sendMessage;
+    vm.getMessages = getMessages;
+
+    // vm.stopLoading = stopLoading;
+
+
+    /* 
+        var nIntervId;
+        nIntervId = setInterval(loader, 1000);
+    
+    
+        function loader() {
+          console.log(count);
+          count++;
+        }
+    
+        function stopLoading() {
+          clearInterval(nIntervId);
+        } */
+
+
+
+    function sendMessage() {
+      console.log('sendMessage start')
+      var resultado = [];
+      messageInput = vm.messageInput;
+      vm.messageInput = "";
+      console.log('user.id', user.id)
+      console.log('Sending message to ', $stateParams.chatId)
+      console.log('messageInput', messageInput)
+      $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + encodeURIComponent(messageInput)).
+        then(function (resultado) {
+
+          console.log('Mensaje enviado')
+          allMessages = [];
+          getMessages();
+        });
+
+      console.log('sendMessage end')
+    }
+
+    function getMessages() {
+      console.log('getMessages start')
+      var resultado = [];
+      $http.get(site + '/tickets/get/messages/' + $stateParams.chatId).
+
+        then(function (resultado) {
+
+          if (resultado.data.code == 2) {
+            allMessages = [];
+            console.log('No messages on ticket ', $stateParams.chatId)
+            console.log('No messages on ticket ', $stateParams.chatId)
+            processMeesages(allMessages);
+          }
+
+
+          else if (resultado.data.mensajitos != undefined) {
+            allMessages = [];
+            allMessages = resultado.data.mensajitos;
+            processMeesages(allMessages);
+          }
+        });
+      console.log('getMessage end')
+    }
+
+    function processMeesages(recievedMessages) {
+      console.log('processMeesages start')
+      chatMessages = "";
+      vm.chatMessages = "";
+
+      for (var i = 0; i < recievedMessages.length; i++) {
+
+        //Message from the logged user
+        if (recievedMessages[i].userMsg == user.id) {
+          chatMessages += '<div class="row ">' +
+            '            <div class="col col-10 "></div>' +
+            '            <div class="col card owner-container">' +
+            '                <div class="item item-text-wrap owner">' +
+            recievedMessages[i].contenido +
+            '                </div>' +
+            '            </div>' +
+            '        </div>';
+        }
+
+        //Messages from the other user
+        else {
+          chatMessages += '<div class="row ">' +
+            '            <div class="col card message-container">' +
+            '                <div class="item item-text-wrap message">' +
+            recievedMessages[i].contenido +
+            '                </div>' +
+            '            </div>' +
+            '            <div class="col col-10 "></div>' +
+            '        </div>';
+        }
+      }
+
+      //Once the for loop ends (What's down didn't show up on the console)
+      vm.chatMessages = chatMessages;
+
+      console.log('processMeesages end')
+    }
+
+    function goToMenu() {
+      //$stateParams.chatId = undefined;
+      //vm.stopLoading();
+      chatMessages = "";
+      $state.go('app.bib');
+    }
+
+    function doToast(string) {
+      var toast = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
+      });
+
+      toast.then(function (res) {
+        //Do something
+      });
+    }
+
+    function getHeaderInformation() {
+      var getHeaderResultado = [];
+      //    /getbyfolio/:folio
+      $http.get(site + '/tickets/getbyfolio/' + $stateParams.chatId).
+        then(function (getHeaderResultado) {
+          var allTickets = [];
+
+          if (getHeaderResultado.data.code == 2)
+            doToast(getHeaderResultado.data.msg)
+
+          else {
+            $rootScope.actualTicket = undefined;
+            $rootScope.actualTicket = getHeaderResultado.data.ticketito;
+
+            if ($rootScope.actualTicket[0].rate == undefined) {
+              vm.rate = "<p>Sin calificar</p>";
+            }
+            else {
+              vm.rate = '<p>' + $rootScope.actualTicket[0].rate + ' <i class="icon ion-star"></i></p> ';
+            }
+
+
+            vm.at = getHeaderResultado.data.ticketito[0];
+          }
+        });
+    }
+
+
+
+
+
+    //Methods that execute once the controller loads
+
+    console.log('$stateParams.chatId', $stateParams.chatId)
+    //Here the chatId gets life
+
+
+    getMessages()
+    getHeaderInformation()
+    //loader()
+
+
+
+    function EditTi() {
+      $ionicActionSheet.show({
+        titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-chatbox-working"></i> Atender' }], destructiveText: '<i class="icon ion-android-done"></i> Cerrar', cancelText: 'Cancel', cancel: function () {
+          console.log('CANCELLED');
+        }, buttonClicked: function (index) {
+          console.log('BUTTON CLICKED', index)
+
+          //abrir
+          if (index == 0) {
+            var resultado = [];
+            //Editar el status del ticket a en proceso
+
+            $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/2').
+              then(function (resultado) {
+                if (resultado.data.code == 2) {
+                  doToast(resultado.data.msg)
+                }
+
+                else {
+                  getHeaderInformation()
+                }
+              });
+
+            //Editar el bibliotecario que atiende el ticket
+            $http.get(site + '/tickets/mod/librarian/' + $stateParams.chatId + '/' + user.id).
+              then(function (resultado) {
+                if (resultado.data.code == 2) {
+                  doToast(resultado.data.msg)
+                }
+
+                else {
+                  getHeaderInformation()
+                }
+              });
+
+          }
+
+          return true;
+        },
+
+        destructiveButtonClicked: function () {
+          console.log('Boton de cerrar presionado')
+          var resultado = [];
+          //Editar el status del ticket a cerrado
+
+          $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/3').
+            then(function (resultado) {
+              if (resultado.data.code == 2) {
+                doToast(resultado.data.msg)
+              }
+
+              else {
+                getHeaderInformation()
+              }
+            });
+          return true;
+        }
+      });
+    }
+
+    function uniCalificar() {
+      $ionicActionSheet.show({
+        titleText: 'Califique el servicio dado', buttons: [{ text: '1' }, { text: '2' }, { text: '3' }, { text: '4' }, { text: '5' },], cancelText: 'Cancel', cancel: function () {
+          console.log('CANCELLED');
+        }, buttonClicked: function (index) {
+          console.log('BUTTON CLICKED', index)
+          var resultado = [];
+
+          console.log('$stateParams.chatId', $stateParams.chatId);
+          $http.get(site + '/tickets/mod/rate/' + $stateParams.chatId + '/' + (index + 1)).
+            then(function (resultado) {
+              if (resultado.data.code == 2) {
+                doToast(resultado.data.msg)
+              }
+
+              else {
+                getHeaderInformation()
+              }
+            });
+          return true;
+        }
+      });
+    }
+  })
+
 
 
   .controller('ResContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams, $interval) {
@@ -555,22 +822,22 @@ angular.module('starter.controllers', ['ionic'])
     // vm.stopLoading = stopLoading;
 
 
-    
-        var nIntervId;
-        nIntervId = setInterval(loader, 1000);
-    
-    
-        function loader() {
-          console.log(count);
-          count++;
-          getMessages()
-          getHeaderInformation()
-          
-        }
-    
-        function stopLoading() {
-          clearInterval(nIntervId);
-        } 
+
+    var nIntervId;
+    nIntervId = setInterval(loader, 1000);
+
+
+    function loader() {
+      console.log(count);
+      count++;
+      getMessages()
+      getHeaderInformation()
+
+    }
+
+    function stopLoading() {
+      clearInterval(nIntervId);
+    }
 
 
 
@@ -712,7 +979,7 @@ angular.module('starter.controllers', ['ionic'])
     //Here the chatId gets life
 
 
-  
+
     loader()
 
 
@@ -1024,7 +1291,7 @@ angular.module('starter.controllers', ['ionic'])
           var allTickets = [];
 
           if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
+            console.log(resultado.data.msg)
 
           else {
 
@@ -1100,8 +1367,98 @@ angular.module('starter.controllers', ['ionic'])
       });
     }
 
-    reloadUniTickets();
+    /*     var nIntervId;
+        var count=0;
+        nIntervId = setInterval(loader, 5000);
+    
+    
+        function loader() {
+          console.log(count);
+          count++;
+          getAssignedTickets();
+          getNewTickets();
+          getInProcessTickets();
+          getDoneTickets();
+        }
+    
+        function stopLoading() {
+          clearInterval(nIntervId);
+        }
+    
+        loader() */
 
+
+    function reload() {
+      getAssignedTickets();
+      getNewTickets();
+      getInProcessTickets();
+      getDoneTickets();
+
+    }
+
+    reload()
+
+    function getAssignedTickets() {
+      var resultado = [];
+      $http.get(site + '/tickets/getbylibrarian/' + user.id).
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            console.log(resultado.data.msg)
+
+          else {
+            $scope.assignedTickets = resultado.data.ticketito;
+          }
+        });
+    }
+
+    function getNewTickets() {
+      var resultado = [];
+      $http.get(site + '/tickets/getByNew').
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            console.log(resultado.data.msg)
+
+          else {
+            $scope.newTickets = resultado.data.ticketito;
+          }
+        });
+    }
+
+    function getInProcessTickets() {
+      var resultado = [];
+      $http.get(site + '/tickets/getByDoing').
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            console.log(resultado.data.msg)
+
+          else {
+            $scope.doingTickets = resultado.data.ticketito;
+          }
+        });
+    }
+
+    function getDoneTickets() {
+
+      var resultado = [];
+      $http.get(site + '/tickets/getByDone').
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            console.log(resultado.data.msg)
+
+          else {
+            $scope.doneTickets = resultado.data.ticketito;
+          }
+        });
+
+    }
 
     //Obtener los reportes de un usuario
     var resultado = [];
@@ -1118,26 +1475,7 @@ angular.module('starter.controllers', ['ionic'])
 
 
     //Functions
-    function reloadUniTickets() {
-      $http.get(site + '/tickets/getbyuser/' + user.id).
-        then(function (resultado) {
-          var allTickets = [];
 
-          if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
-
-          else {
-
-            var depOptions = resultado.data.ticketito;
-
-
-            $rootScope.ticketsOfUni = {
-              availableOptions: depOptions
-            };
-
-          }
-        });
-    }
 
 
     function doToast(string) {
@@ -1455,10 +1793,10 @@ angular.module('starter.controllers', ['ionic'])
     //Functions
     function doLibrarian(userid) {
       ///modrol/: id /: rol
-      console.log('cambiando rol de universitario '+userid+' a bibliotecario')
+      console.log('cambiando rol de universitario ' + userid + ' a bibliotecario')
       var resultado = [];
 
-      $http.get(site + '/users/modrol/'+userid+'/'+3).
+      $http.get(site + '/users/modrol/' + userid + '/' + 3).
         then(function (resultado) {
           getBibliotecarios()
           getStudents()
@@ -1546,6 +1884,7 @@ angular.module('starter.controllers', ['ionic'])
           //Credenciales correctas
           else if (resultado.data.code == 3) {
             user = resultado.data.user
+
 
             //Universitario
             if (user.rol == 1)

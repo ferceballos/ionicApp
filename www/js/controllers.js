@@ -483,16 +483,16 @@ angular.module('starter.controllers', ['ionic'])
             var resultado = [];
             //Editar el status del ticket a cerrado
 
-/*             $http.get(site + '/tickets/mod/librarian/' + $stateParams.chatId + '/2').
-              then(function (resultado) {
-                if (resultado.data.code == 2) {
-                  doToast(resultado.data.msg)
-                }
-
-                else {
-                  getHeaderInformation()
-                }
-              }); */
+            /*             $http.get(site + '/tickets/mod/librarian/' + $stateParams.chatId + '/2').
+                          then(function (resultado) {
+                            if (resultado.data.code == 2) {
+                              doToast(resultado.data.msg)
+                            }
+            
+                            else {
+                              getHeaderInformation()
+                            }
+                          }); */
 
           }
 
@@ -1400,77 +1400,60 @@ angular.module('starter.controllers', ['ionic'])
 
   .controller('resAddPeopleCtrl', function ($scope, $stateParams, $state, $http, $ionicViewSwitcher, $rootScope, $ionicPopup, $ionicActionSheet) {
     var vm = this;
+    
+    getLibrarianApplicants()
+
+    function getLibrarianApplicants() {
+      var resultado = [];
+
+      $http.get(site + '/users/uniAndBib').
+        then(function (resultado) {
+
+          //There was a problem getting the users from the database
+          if (resultado.data.code == 2)
+            doToast(resultado.data.msg)
+
+          //All the users were bring succesfully
+          else {
+                $scope.usersForRes = resultado.data.users;
+                console.log('resultado.data.users', resultado.data.users)
+                console.log('$scope.usersForRes', $scope.usersForRes)
+          }
+        }); 
+    }
 
 
     //Declarations of functions
     vm.goToRes = goToRes;
-    vm.goToCreate = goToCreate;
+
     vm.addPeople = addPeople;
-    vm.showActionSheet = showActionSheet;
-    vm.showAddSheet = showAddSheet;
+
 
     //Functions
 
-    function addPeople() {
-      var peti = vm.asunto;
-      var init = vm.mensaje;
+    function addPeople(userID) {
+      console.log('add people called on' + userID)
+      console.log(vm.resSwitches)
+      console.log(vm.resSwitches.(userID))
 
-      // validar que exista un asunto
-      if (peti == undefined || init == "") {
-        doToast('El asunto es obligatorio');
-      }
-
-      else {
-        if (init == undefined || init == "")
-          init = "No fue necesario explicar más a fondo.";
-
-
-
-        var resultado = [];
-
-        $http.get(site + '/tickets/create/' + peti + '/' + init + '/' + user.id).
-          then(function (resultado) {
-            //Limpiar campos
-            vm.asunto = undefined;
-            vm.mensaje = undefined;
-
-            console.log(resultado.data.code);
-            console.log(resultado.data.msg);
-            //Problema al crear el ticket
-            if (resultado.data.code == 2)
-              doToast(resultado.data.msg)
-
-            //Ticket creado con éxito
-            else if (resultado.data.code == 1) {
-              $ionicViewSwitcher.nextDirection('back');
-
-              reloadUniTickets();
-              //$scope.$apply();
-
-              $state.go('app.uni');
-            }
-          });
-      }
+      /*         var resultado = [];
+      
+              $http.get(site + '/users/uniAndBib').
+                then(function (resultado) {
+                  
+                  vm.asunto = undefined;
+      
+                  //Problema al cambiar rol
+                  if (resultado.data.code == 2)
+                    doToast(resultado.data.msg)
+      
+                  //Cambio creado con éxito
+                  else {
+      
+                  }
+                }); */
     }
 
-    function reloadUniTickets(params) {
-      $http.get(site + '/tickets/getbyuser/' + user.id).
-        then(function (resultado) {
-          var allTickets = [];
-
-          if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
-
-          else {
-
-            var depOptions = resultado.data.ticketito;
-
-            $rootScope.ticketsOfUni = {
-              availableOptions: depOptions
-            };
-          }
-        });
-    }
 
     function doToast(string) {
       var toast = $ionicPopup.show({
@@ -1488,72 +1471,6 @@ angular.module('starter.controllers', ['ionic'])
     function goToRes() {
       $state.go('app.res')
     }
-
-    function goToCreate(params) {
-      $state.go('app.addTicket');
-    }
-
-    function addTicket() {
-      var peti = vm.asunto;
-      var init = vm.mensaje;
-
-      // validar que exista un asunto
-      if (peti == undefined || init == "") {
-        doToast('El asunto es obligatorio');
-      }
-
-      else {
-        if (init == undefined || init == "")
-          init = "No fue necesario explicar más a fondo.";
-
-
-
-        var resultado = [];
-
-        $http.get(site + '/tickets/create/' + peti + '/' + init + '/' + user.id).
-          then(function (resultado) {
-            //Limpiar campos
-            vm.asunto = undefined;
-            vm.mensaje = undefined;
-
-            console.log(resultado.data.code);
-            console.log(resultado.data.msg);
-            //Problema al crear el ticket
-            if (resultado.data.code == 2)
-              doToast(resultado.data.msg)
-
-            //Ticket creado con éxito
-            else if (resultado.data.code == 1) {
-              $ionicViewSwitcher.nextDirection('back');
-
-              reloadUniTickets();
-              //$scope.$apply();
-
-              $state.go('app.uni');
-            }
-          });
-      }
-    }
-
-    function showActionSheet() {
-      $ionicActionSheet.show({
-        titleText: 'ActionSheet Example', buttons: [{ text: '<i class="icon ion-share"></i> Share' }, { text: '<i class="icon ion-arrow-move"></i> Move' },], destructiveText: 'Delete', cancelText: 'Cancel', cancel: function () {
-          console.log('CANCELLED');
-        }, buttonClicked: function (index) {
-          console.log('BUTTON CLICKED', index)
-          return true;
-        }, destructiveButtonClicked: function () {
-          console.log('DESTRUCT');
-          return true;
-        }
-      });
-    };
-
-    function showAddSheet() {
-      $state.go('app.addTicket');
-      //uniAddTicketCtrl
-    };
-
   })
 
 

@@ -5,11 +5,15 @@
         </label>
     </div> -->
 
-    <div class="bar bar-header  owner">
-        <button class="button owner" ng-click="vm.goToRes()">
-            <i class="white-text icon ion-android-arrow-back"></i>
-        </button>
-        <div class="h1 title white-text">Permisos de bibliotecario</div>
+    <!--     <div class="bar bar-header">
+        <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
+        <div class="h1 bluedeep title ng-binding">Ticket 8</div>
+        <button class="smaller bluedeep button icon ion-edit" ng-click="vm.EditTi()"></button>
+    </div> -->
+
+    <div class="bar bar-header ">
+        <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToRes()"></button>
+        <div class="h1 title bluedeep">Permisos de bibliotecario</div>
 
     </div>
 
@@ -32,92 +36,23 @@
                     </label>
                 </div>
 
-                <div class="card padding row">
+                <!-- div that repeats for every user found which rol is equal to 1 or 3 -->
+                <div class="card padding row" ng-repeat="user in usersForRes | filter : vm.searchUsers">
                     <div class="col col-80">
-                        <h6 class="b">Fernando Ceballos</h6>
-                        <p>ceballos@ucol.mx</p>
+                        <h6 class="b">{{user.name}}</h6>
+                        <p>{{user.mail}} {{user.switchid}}</p>
                     </div>
 
-                    <div class="col right">
-                        <label class="toggle">
-                            <input type="checkbox">
+                    <div class="col right" style="margin-top: 6%">
+                        <label class="toggle toggle-calm">
+                            <input type="checkbox" ng-click="vm.addPeople({{user.id}})" ng-model="{{user.switchid}}">
                             <div class="track">
                                 <div class="handle"></div>
                             </div>
                         </label>
                     </div>
                 </div>
-
-
-
-
-
-
-                <div class="card padding row">
-                        <div class="col col-80">
-                            <h6 class="b">Fernando Ceballos</h6>
-                            <p>ceballos@ucol.mx</p>
-                        </div>
-    
-                        <div class="col right">
-                            <label class="toggle">
-                                <input type="checkbox">
-                                <div class="track">
-                                    <div class="handle"></div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>                <div class="card padding row">
-                            <div class="col col-80">
-                                <h6 class="b">Fernando Ceballos</h6>
-                                <p>ceballos@ucol.mx</p>
-                            </div>
-        
-                            <div class="col right">
-                                <label class="toggle">
-                                    <input type="checkbox">
-                                    <div class="track">
-                                        <div class="handle"></div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>                <div class="card padding row">
-                                <div class="col col-80">
-                                    <h6 class="b">Fernando Ceballos</h6>
-                                    <p>ceballos@ucol.mx</p>
-                                </div>
-            
-                                <div class="col right">
-                                    <label class="toggle">
-                                        <input type="checkbox">
-                                        <div class="track">
-                                            <div class="handle"></div>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>                <div class="card padding row">
-                                    <div class="col col-80">
-                                        <h6 class="b">Fernando Ceballos</h6>
-                                        <p>ceballos@ucol.mx</p>
-                                    </div>
-                
-                                    <div class="col right">
-                                        <label class="toggle">
-                                            <input type="checkbox">
-                                            <div class="track">
-                                                <div class="handle"></div>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-
-
-
-
-
-
             </div>
         </div>
-
     </ion-content>
 </ion-view>

@@ -28,11 +28,10 @@ angular.module('starter.controllers', ['ionic'])
     vm.uniCalificar = uniCalificar;
     vm.sendMessage = sendMessage;
     vm.getMessages = getMessages;
-    vm.sendMessage = sendMessage;
-    // vm.stopLoading = stopLoading;
+    vm.stopLoading = stopLoading;
 
 
-    /* 
+    
         var nIntervId;
         nIntervId = setInterval(loader, 1000);
     
@@ -40,23 +39,25 @@ angular.module('starter.controllers', ['ionic'])
         function loader() {
           console.log(count);
           count++;
+          getMessages()
+          getHeaderInformation()
         }
     
         function stopLoading() {
           clearInterval(nIntervId);
-        } */
+        } 
 
 
 
     function sendMessage() {
       console.log('sendMessage start')
       var resultado = [];
-      messageInput = vm.messageInput;
+      messageInput = encodeURIComponent(vm.messageInput) ;
       vm.messageInput = "";
       console.log('user.id', user.id)
       console.log('Sending message to ', $stateParams.chatId)
       console.log('messageInput', messageInput)
-      $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + messageInput).
+      $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + messageInput ).
         then(function (resultado) {
 
           console.log('Mensaje enviado')
@@ -131,7 +132,7 @@ angular.module('starter.controllers', ['ionic'])
 
     function goToMenu() {
       //$stateParams.chatId = undefined;
-      //vm.stopLoading();
+      vm.stopLoading();
       chatMessages = "";
       $state.go('app.uni');
     }
@@ -266,7 +267,7 @@ angular.module('starter.controllers', ['ionic'])
     vm.uniCalificar = uniCalificar;
     vm.sendMessage = sendMessage;
     vm.getMessages = getMessages;
-    vm.sendMessage = sendMessage;
+
     // vm.stopLoading = stopLoading;
 
 
@@ -294,7 +295,7 @@ angular.module('starter.controllers', ['ionic'])
       console.log('user.id', user.id)
       console.log('Sending message to ', $stateParams.chatId)
       console.log('messageInput', messageInput)
-      $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + messageInput).
+      $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + encodeURIComponent(messageInput)).
         then(function (resultado) {
 
           console.log('Mensaje enviado')
@@ -554,7 +555,7 @@ angular.module('starter.controllers', ['ionic'])
     // vm.stopLoading = stopLoading;
 
 
-    /* 
+    
         var nIntervId;
         nIntervId = setInterval(loader, 1000);
     
@@ -562,11 +563,14 @@ angular.module('starter.controllers', ['ionic'])
         function loader() {
           console.log(count);
           count++;
+          getMessages()
+          getHeaderInformation()
+          
         }
     
         function stopLoading() {
           clearInterval(nIntervId);
-        } */
+        } 
 
 
 
@@ -653,7 +657,7 @@ angular.module('starter.controllers', ['ionic'])
 
     function goToMenu() {
       //$stateParams.chatId = undefined;
-      //vm.stopLoading();
+      stopLoading();
       chatMessages = "";
       $state.go('app.uni');
     }
@@ -708,9 +712,8 @@ angular.module('starter.controllers', ['ionic'])
     //Here the chatId gets life
 
 
-    getMessages()
-    getHeaderInformation()
-    //loader()
+  
+    loader()
 
 
 
@@ -1339,7 +1342,7 @@ angular.module('starter.controllers', ['ionic'])
       var init = vm.mensaje;
 
       // validar que exista un asunto
-      if (peti == undefined || init == "") {
+      if (peti == undefined || peti == "") {
         doToast('El asunto es obligatorio');
       }
 
@@ -1351,7 +1354,7 @@ angular.module('starter.controllers', ['ionic'])
 
         var resultado = [];
 
-        $http.get(site + '/tickets/create/' + peti + '/' + init + '/' + user.id).
+        $http.get(site + '/tickets/create/' + encodeURIComponent(peti) + '/' + encodeURIComponent(init) + '/' + user.id).
           then(function (resultado) {
             //Limpiar campos
             vm.asunto = undefined;
@@ -1400,13 +1403,14 @@ angular.module('starter.controllers', ['ionic'])
 
   .controller('resAddPeopleCtrl', function ($scope, $stateParams, $state, $http, $ionicViewSwitcher, $rootScope, $ionicPopup, $ionicActionSheet) {
     var vm = this;
-    
-    getLibrarianApplicants()
 
-    function getLibrarianApplicants() {
+    getBibliotecarios()
+    getStudents()
+
+    function getBibliotecarios() {
       var resultado = [];
 
-      $http.get(site + '/users/uniAndBib').
+      $http.get(site + '/users/getLibrarians').
         then(function (resultado) {
 
           //There was a problem getting the users from the database
@@ -1415,44 +1419,64 @@ angular.module('starter.controllers', ['ionic'])
 
           //All the users were bring succesfully
           else {
-                $scope.usersForRes = resultado.data.users;
-                console.log('resultado.data.users', resultado.data.users)
-                console.log('$scope.usersForRes', $scope.usersForRes)
+            $scope.bibliotecarios = resultado.data.users;
+            console.log('resultado.data.users', resultado.data.users)
           }
-        }); 
+        });
+    }
+
+    function getStudents() {
+      var resultado = [];
+
+      $http.get(site + '/users/getStudents').
+        then(function (resultado) {
+
+          //There was a problem getting the users from the database
+          if (resultado.data.code == 2)
+            doToast(resultado.data.msg)
+
+          //All the users were bring succesfully
+          else {
+            $scope.students = resultado.data.users;
+            console.log('resultado.data.users', resultado.data.users)
+          }
+        });
     }
 
 
     //Declarations of functions
     vm.goToRes = goToRes;
+    vm.doLibrarian = doLibrarian;
 
-    vm.addPeople = addPeople;
+    vm.doStudent = doStudent;
+
 
 
     //Functions
+    function doLibrarian(userid) {
+      ///modrol/: id /: rol
+      console.log('cambiando rol de universitario '+userid+' a bibliotecario')
+      var resultado = [];
 
-    function addPeople(userID) {
-      console.log('add people called on' + userID)
-      console.log(vm.resSwitches)
-      console.log(vm.resSwitches.(userID))
-
-      /*         var resultado = [];
-      
-              $http.get(site + '/users/uniAndBib').
-                then(function (resultado) {
-                  
-                  vm.asunto = undefined;
-      
-                  //Problema al cambiar rol
-                  if (resultado.data.code == 2)
-                    doToast(resultado.data.msg)
-      
-                  //Cambio creado con éxito
-                  else {
-      
-                  }
-                }); */
+      $http.get(site + '/users/modrol/'+userid+'/'+3).
+        then(function (resultado) {
+          getBibliotecarios()
+          getStudents()
+        });
     }
+
+    function doStudent(userid) {
+      ///modrol/: id /: rol
+      console.log('cambiando rol de bibliotecario ' + userid + ' a universitario')
+      var resultado = [];
+
+      $http.get(site + '/users/modrol/' + userid + '/' + 1).
+        then(function (resultado) {
+          getBibliotecarios()
+          getStudents()
+        });
+    }
+
 
 
     function doToast(string) {

@@ -1,5 +1,6 @@
 <ion-view hide-nav-bar="true">
-    <div class="bar item-input-inset">
+    <div class="bar bar-clear item-input-inset">
+
         <label class="item-input-wrapper text-center">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" placeholder="Buscar" ng-model="vm.searchTicket">
@@ -11,9 +12,9 @@
             <div class="list">
 
                 <!-- ng-repeat="x in names | filter : 'i'" -->
-                <a class="item item-avatar"  href="#/app/res/{{option.folio}}" ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket | orderBy:'-folio'">
+                <a class="item item-avatar" href="#/app/res/{{option.folio}}" ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket | orderBy:'-folio'">
                     <!-- 5, 2, 6, 3 -->
-                    <img src="img/tickets/6.png">
+                    <img src="https://static.pexels.com/photos/185764/pexels-photo-185764.jpeg">
                     <h2>{{option.peticion}}</h2>
                     <p>{{option.init}}</p>
                 </a>
@@ -21,6 +22,6 @@
         </div>
     </ion-content>
     <button class=" button button-float" ng-click="vm.addPeople()">
-        <i class="icon ion-person"></i>
+        <i class="icon ion-person-add"></i>
     </button>
 </ion-view>

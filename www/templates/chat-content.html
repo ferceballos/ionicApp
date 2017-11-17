@@ -1,13 +1,13 @@
 <!-- Esta vista representa el contenido de una conversación (O ticket) -->
 
 <ion-view hide-nav-bar="true" title="Ticket {{vm.at.folio}}">
-    <div class="bar bar-header">
+    <div class="bar bar-clear bar-header">
         <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
         <div class="h1 bluedeep title">Ticket {{vm.at.folio}}</div>
         <button class="smaller bluedeep button icon ion-edit" ng-click="vm.uniEditTi()"></button>
     </div>
 
-    <ion-content class="bgr-bluegr">
+    <ion-content class="bgr-bluegr" id="messagesContent">
         <br>
         <br>
         <!-- Contenedor sobre el ticket -->

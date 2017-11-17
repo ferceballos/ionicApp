@@ -13,7 +13,7 @@
 
     <div class="bar bar-header ">
         <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToRes()"></button>
-        <div class="h1 title bluedeep">Permisos de bibliotecario</div>
+        <div class="h1 title bluedeep">Control de bibliotecarios</div>
 
     </div>
 
@@ -29,29 +29,57 @@
 
             <div id="bot-part" class="padding">
 
-                <div class="item-input-inset">
-                    <label class="item-input-wrapper text-center">
-                        <i class="icon ion-ios-search placeholder-icon"></i>
-                        <input type="search" placeholder="Buscar usuarios" ng-model="vm.searchUsers">
-                    </label>
-                </div>
+         
 
-                <!-- div that repeats for every user found which rol is equal to 1 or 3 -->
-                <div class="card padding row" ng-repeat="user in usersForRes | filter : vm.searchUsers">
-                    <div class="col col-80">
-                        <h6 class="b">{{user.name}}</h6>
-                        <p>{{user.mail}} {{user.switchid}}</p>
+                <div class="list">
+                        <div class="list-inset card">
+                            <label class="item item-input">
+                                <i class="icon ion-search placeholder-icon"></i>
+                                <input type="search" placeholder="Buscar usuarios" ng-model="vm.searchUsers">
+                        
+                            </label>
+                        </div>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-university" ></i>
+                           Bibliotecarios
                     </div>
 
-                    <div class="col right" style="margin-top: 6%">
-                        <label class="toggle toggle-calm">
-                            <input type="checkbox" ng-click="vm.addPeople({{user.id}})" ng-model="{{user.switchid}}">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
-                        </label>
+                    <div class="item row" ng-repeat="user in bibliotecarios | filter : vm.searchUsers">
+                        <div class="col col-80">
+                            <h3 class=" grey-text">{{user.name}}</h3>
+                            <p>{{user.mail}} </p>
+                        </div>
+
+
+
+                        <div class="col right">
+                            <button class="smaller assertive button icon ion-android-arrow-down " ng-click="vm.doStudent({{user.id}})"></button>
+
+                        </div>
                     </div>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-android-person"></i>
+                        Universitarios
+                    </div>
+                    <div class="item row" ng-repeat="user in students | filter : vm.searchUsers">
+                        <div class="col col-80">
+                            <h3 class=" grey-text">{{user.name}}</h3>
+                            <p>{{user.mail}} </p>
+                        </div>
+
+
+
+                        <div class="col right">
+                            <button class="smaller calm button icon ion-android-arrow-up " ng-click="vm.doLibrarian({{user.id}})"></button>
+                        </div>
+                    </div>
+
+
+
                 </div>
+
             </div>
         </div>
     </ion-content>

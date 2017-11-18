@@ -1388,28 +1388,26 @@ angular.module('starter.controllers', ['ionic'])
         loader() */
 
 
-    function reload() {
-      getAssignedTickets();
-      getNewTickets();
-      getInProcessTickets();
-      getDoneTickets();
 
-    }
 
-    reload()
+    
 
     function getAssignedTickets() {
+      console.log('star get assignedtickets')
       var resultado = [];
-      $http.get(site + '/tickets/getbylibrarian/' + user.id).
+      $http.get(site + '/tickets/getByLibrarian/' + user.id).
         then(function (resultado) {
           var allTickets = [];
 
           if (resultado.data.code == 2)
-            console.log(resultado.data.msg)
+            console.log('codigo 2 en getAssignedTickets')
 
           else {
+            console.log('assignedTickets',resultado.data.ticketito)
             $scope.assignedTickets = resultado.data.ticketito;
           }
+
+          console.log('getAssigned terminado')
         });
     }
 
@@ -1457,6 +1455,14 @@ angular.module('starter.controllers', ['ionic'])
             $scope.doneTickets = resultado.data.ticketito;
           }
         });
+
+    }
+
+    function reload() {
+      getAssignedTickets();
+      getNewTickets();
+      getInProcessTickets();
+      getDoneTickets();
 
     }
 
@@ -1518,6 +1524,8 @@ angular.module('starter.controllers', ['ionic'])
       $state.go('app.addTicket');
     };
 
+
+    reload()
   })
 
   //CONTROLLER FOR ADMIN

@@ -1428,7 +1428,7 @@ angular.module('starter.controllers', ['ionic'])
 
     function getInProcessTickets() {
       var resultado = [];
-      $http.get(site + '/tickets/getByDoing').
+      $http.get(site + '/tickets/getByDoing/'+user.id).
         then(function (resultado) {
           var allTickets = [];
 

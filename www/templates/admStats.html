@@ -10,15 +10,53 @@
         <br>
         <center>
 
+            <!-- 
+<div class="container">
+    <form id="rangoFechas" class="row">
+        <h5 class="grey-text text-darken-3 center-align">Filtrado por fechas</h5>
+        <p class="grey-text text-darken-1 center-align">Introduzca un rango de fechas para que las gráficas le muestren la información deseada desde una fecha inicial hasta
+            una fecha límite</p>
+        <br>
+        <div class="col m6 left-align">
+            <label for="fechaInicio" class="active ">Rango de inicio</label>
+            <input id="fechaInicio" type="text" class="datepicker" aria-haspopup="true" aria-expanded="true" aria-readonly="false">
+        </div>
+        <div class="col m6 right-align">
+            <label for="fechaFin" class="active right-align">Rango final</label>
+            <input id="fechaFin" type="text" class="datepicker right-align" aria-haspopup="true" aria-expanded="true" aria-readonly="false">
+        </div>
+        <button type="button" onclick="obtenerDatos()" class="waves-effect waves-light btn wide center-align">Filtrar por las fechas definidas</button>
+    </form>
+</div>
+
+<br>
+<div class="divider"></div>
+<br> -->
+
+
+
+
+
+
+            <div>
+                <div class="col left-align">
+                    <button type="" ng-click="openDatePicker()"></button>
+                    <div class="text-center padding-top ng-binding" ng-if="selectedDate1"></div>
+                </div>
+                <div class="col right-align">
+
+                </div>
+            </div>
+
             <div class="card padding">
                 <div class=" text-center">
 
-                        <h1 class="bluet">1392</h1>
-                         <h4 class="grey-text" style=" color:rgb(255, 65, 65)">TICKETS</h4> 
-                         <p class="grey-text">(9234 en total)</p>
+                    <h1 class="bluet">1392</h1>
+                    <h4 class="grey-text" style=" color:rgb(255, 65, 65)">TICKETS</h4>
+                    <p class="grey-text">(9234 en total)</p>
 
 
-                   
+
                 </div>
             </div>
 
@@ -40,7 +78,6 @@
                 <div class=" padding text-center">
                     <h4 class="grey-text ">Estado de los tickets</h3>
                         <p class="grey-text">Actualmente, así se encuentran sus tickets</p>
-                        <br>
 
                         <canvas id="doughnut" class="chart chart-doughnut" chart-data="c2data" chart-labels="c2labels">
                         </canvas>

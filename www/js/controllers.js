@@ -1,7 +1,7 @@
 const site = 'http://localhost:3000';
 var user = [];
 
-angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast'])
+angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ionic-datepicker'])
 
 
 
@@ -13,24 +13,63 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast'])
 
   })
 
-  .controller('StatsCtrl', function ($scope, ionicToast) {
+  .controller('StatsCtrl', function ($scope, ionicToast, ionicDatePicker) {
 
-
-
+    //Variables que componen la gráfica de los meses
     $scope.c1labels = ["May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov"];
-
     $scope.c1data = [[28, 48, 40, 19, 86, 27, 90]];
 
-    $scope.c2labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+    //Gráfica dona de los estados
+    $scope.c2labels = ["Nuevos", "En proceso", "Cerrados"];
     $scope.c2data = [300, 500, 100];
+
+
     $scope.onClick = function (points, evt) {
       console.log(points, evt);
     }
 
     $scope.showToast = function () {
-
       ionicToast.show('This is a toast at the top.', 'top', false, 2500);
     }
+
+
+
+
+    var ipObj1 = {
+      callback: function (val) {  //Mandatory
+        console.log('Fecha 1 : ' + val);
+        console.log('Fecha 2 : ' + new Date(val));
+
+        var date = new Date (val);
+        var formattedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
+        console.log(formattedDate);
+
+      },
+/*       disabledDates: [            //Optional
+        new Date(2016, 2, 16),
+        new Date(2015, 3, 16),
+        new Date(2015, 4, 16),
+        new Date(2015, 5, 16),
+        new Date('Wednesday, August 12, 2015'),
+        new Date("08-16-2016"),
+        new Date(1439676000000)
+      ], */
+/*       from: new Date(2012, 1, 1), //Optional
+      to: new Date(2016, 10, 30), //Optional */
+/*       inputDate: new Date(),      //Optional
+      mondayFirst: true,          //Optional
+      disableWeekdays: [0],       //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional*/
+    }; 
+
+    $scope.openDatePicker = function () {
+      ionicDatePicker.openDatePicker(ipObj1);
+    };
+
+    
+
+
 
   })
 

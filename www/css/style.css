@@ -6,6 +6,10 @@
     background-repeat: no-repeat;
 }
 
+.bordered{
+      border-radius: 60px !important;
+}
+
 .bgr-bluegr{
      background-color: #eceff1 ;    
 }
@@ -86,6 +90,10 @@ color: #57A2FA !important;
 .centered{
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+.left{
+    margin-left: -2% !important;
 }
 
 .text-center{
@@ -250,6 +258,13 @@ color: #57A2FA !important;
 .blue{
     color: #6296C8 !important;
     height: 100%;
+}
+
+.bluet{
+    font-size: 500% !important;
+    font-weight: lighter !important;
+    color: #6296C8 !important;
+    font-style: bold !important;   
 }
 
 .bluedeep{

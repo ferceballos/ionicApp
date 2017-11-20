@@ -1,0 +1,73 @@
+<ion-view hide-nav-bar="true" title="Estadísticas">
+    <div class="bar bar-header">
+        <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
+        <div class="h1 bluedeep title">Estadísticas</div>
+        <button class="smaller bluedeep button icon ion-edit" ng-click="vm.uniEditTi()"></button>
+    </div>
+
+    <ion-content class="bgr-bluegr">
+        <br>
+        <br>
+        <center>
+
+            <div class="card padding">
+                <div class=" text-center">
+
+                        <h1 class="bluet">1392</h1>
+                         <h4 class="grey-text" style=" color:rgb(255, 65, 65)">TICKETS</h4> 
+                         <p class="grey-text">(9234 en total)</p>
+
+
+                   
+                </div>
+            </div>
+
+            <div class="card">
+                <div class=" padding text-center">
+                    <h4 class="grey-text ">Ultimos tickets</h3>
+                        <p class="grey-text">Realizados en los ultimos seis meses</p>
+                        <br>
+
+                        <canvas id="line" class="chart chart-line left" chart-data="c1data" chart-labels="c1labels" chart-series="c1series" chart-options="c1options"
+                            chart-dataset-override="datasetOverride" chart-click="onClick">
+                        </canvas>
+                </div>
+            </div>
+
+
+
+            <div class="card">
+                <div class=" padding text-center">
+                    <h4 class="grey-text ">Estado de los tickets</h3>
+                        <p class="grey-text">Actualmente, así se encuentran sus tickets</p>
+                        <br>
+
+                        <canvas id="doughnut" class="chart chart-doughnut" chart-data="c2data" chart-labels="c2labels">
+                        </canvas>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col"></div>
+                <div class=" col divider text-center"></div>
+                <div class="col"></div>
+            </div>
+
+            <button class="button button-block" ng-click="showToast()">Show Toast at top with close</button>
+
+
+        </center>
+
+
+
+
+
+
+
+
+
+    </ion-content>
+    <button class=" button button-float" ng-click="vm.showAddSheet()">
+        <i class="icon ion-navicon-round"></i>
+    </button>
+</ion-view>

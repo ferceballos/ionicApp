@@ -1,7 +1,9 @@
 const site = 'http://localhost:3000';
 var user = [];
 
-angular.module('starter.controllers', ['ionic'])
+angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast'])
+
+
 
   .controller('AppCtrl', function () {
 
@@ -10,6 +12,29 @@ angular.module('starter.controllers', ['ionic'])
   .controller('PlaylistsCtrl', function ($scope) {
 
   })
+
+  .controller('StatsCtrl', function ($scope, ionicToast) {
+
+
+
+    $scope.c1labels = ["May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov"];
+
+    $scope.c1data = [[28, 48, 40, 19, 86, 27, 90]];
+
+    $scope.c2labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+    $scope.c2data = [300, 500, 100];
+    $scope.onClick = function (points, evt) {
+      console.log(points, evt);
+    }
+
+    $scope.showToast = function () {
+
+      ionicToast.show('This is a toast at the top.', 'top', false, 2500);
+    }
+
+  })
+
+
 
   // Content controller para el universitario
 
@@ -437,10 +462,9 @@ angular.module('starter.controllers', ['ionic'])
         titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-chatbox-working"></i> Atender' }], destructiveText: '<i class="icon ion-android-done"></i> Cerrar', cancelText: 'Cancel', cancel: function () {
           console.log('CANCELLED');
         }, buttonClicked: function (index) {
-          console.log('BUTTON CLICKED', index)
 
-          //abrir
-          if (index == 0) {
+          //atender
+          if (index == 0 && vm.at.status != 'Cerrado') {
             var resultado = [];
             //Editar el status del ticket a en proceso
 
@@ -1390,7 +1414,7 @@ angular.module('starter.controllers', ['ionic'])
 
 
 
-    
+
 
     function getAssignedTickets() {
       console.log('star get assignedtickets')
@@ -1403,7 +1427,7 @@ angular.module('starter.controllers', ['ionic'])
             console.log('codigo 2 en getAssignedTickets')
 
           else {
-            console.log('assignedTickets',resultado.data.ticketito)
+            console.log('assignedTickets', resultado.data.ticketito)
             $scope.assignedTickets = resultado.data.ticketito;
           }
 
@@ -1428,7 +1452,7 @@ angular.module('starter.controllers', ['ionic'])
 
     function getInProcessTickets() {
       var resultado = [];
-      $http.get(site + '/tickets/getByDoing/'+user.id).
+      $http.get(site + '/tickets/getByDoing/' + user.id).
         then(function (resultado) {
           var allTickets = [];
 

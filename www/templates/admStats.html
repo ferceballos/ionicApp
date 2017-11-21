@@ -10,43 +10,26 @@
         <br>
         <center>
 
-            <!-- 
-<div class="container">
-    <form id="rangoFechas" class="row">
-        <h5 class="grey-text text-darken-3 center-align">Filtrado por fechas</h5>
-        <p class="grey-text text-darken-1 center-align">Introduzca un rango de fechas para que las gráficas le muestren la información deseada desde una fecha inicial hasta
-            una fecha límite</p>
-        <br>
-        <div class="col m6 left-align">
-            <label for="fechaInicio" class="active ">Rango de inicio</label>
-            <input id="fechaInicio" type="text" class="datepicker" aria-haspopup="true" aria-expanded="true" aria-readonly="false">
-        </div>
-        <div class="col m6 right-align">
-            <label for="fechaFin" class="active right-align">Rango final</label>
-            <input id="fechaFin" type="text" class="datepicker right-align" aria-haspopup="true" aria-expanded="true" aria-readonly="false">
-        </div>
-        <button type="button" onclick="obtenerDatos()" class="waves-effect waves-light btn wide center-align">Filtrar por las fechas definidas</button>
-    </form>
-</div>
+            <div class=" padding">
+                <div class=" padding text-center">
+                    <h4 class="grey-text ">Filtrado por fechas</h3>
+                        <p class="grey-text">Introduzca un rango</p>
+                        <div class="row">
+                            <div class="col left-align">
+                                <button ng-click="openDPInit()" class="bckblue white-text button button-outline button-light"> Fecha inicio</button>
+                                <p class="grey-text dateStart">{{fechaInicio}}</p>
+                            </div>
+                            <div class="col right-align">
+                                <button ng-click="openDPFinal()" class="bckblue white-text button button-outline button-light">Fecha final</button>
+                                <p class="grey-text dateEnd">{{fechaFinal}}</p>
 
-<br>
-<div class="divider"></div>
-<br> -->
+                            </div>
+                        </div>
 
-
-
-
-
-
-            <div>
-                <div class="col left-align">
-                    <button type="" ng-click="openDatePicker()"></button>
-                    <div class="text-center padding-top ng-binding" ng-if="selectedDate1"></div>
-                </div>
-                <div class="col right-align">
 
                 </div>
             </div>
+
 
             <div class="card padding">
                 <div class=" text-center">
@@ -104,7 +87,4 @@
 
 
     </ion-content>
-    <button class=" button button-float" ng-click="vm.showAddSheet()">
-        <i class="icon ion-navicon-round"></i>
-    </button>
 </ion-view>

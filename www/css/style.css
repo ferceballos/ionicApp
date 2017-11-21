@@ -96,6 +96,14 @@ color: #57A2FA !important;
     margin-left: -2% !important;
 }
 
+.left-align{
+    text-align: left !important;
+}
+
+.right-align{
+    text-align: right !important;
+}
+
 .text-center{
     text-align: center !important;
 }
@@ -195,6 +203,11 @@ color: #57A2FA !important;
     height: 100%;
 }
 
+.bckblue{
+    background-color: #6296C8 !important;
+
+}
+
 .bluet{
     font-size: 500% !important;
     font-weight: lighter !important;
@@ -204,6 +217,10 @@ color: #57A2FA !important;
 
 .bluedeep{
     color: rgb(74, 112, 148) !important;
+}
+
+.bckbluedeep{
+    background-color: rgb(74, 112, 148) !important;
 }
 
 
@@ -248,3 +265,44 @@ color: #57A2FA !important;
 	border-radius:.75rem;
 }
 
+/* Date Picket Classes */
+
+.button_set, .button_today, .button_close, .selected_date{
+    background-color: #6296C8 !important;
+    color:white !important;
+}
+
+.today{
+    border-color: rgb(74, 112, 148) !important;
+
+}
+
+.month_select{
+    border-color: rgb(74, 112, 148) !important;
+}
+
+.ionic_datepicker_popup .popup-body .selected_date_full {
+    background-color: #6296C8 !important;
+    color:white !important;
+    font-weight: lighter
+}
+
+
+
+.prev_btn_section .icon , .next_btn_section .icon{
+        color: #6296C8 !important;
+
+}
+
+.ionic_datepicker_popup .popup-body .month_select, .ionic_datepicker_popup .popup-body .year_select {
+    border-bottom: 1px solid rgb(74, 112, 148) !important;
+
+}
+
+.dateStart{
+    margin-left: 2% !important;
+}
+
+.dateEnd{
+    margin-right: 2% !important;
+}

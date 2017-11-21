@@ -36,38 +36,71 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
     var ipObj1 = {
-      callback: function (val) {  //Mandatory
-        console.log('Fecha 1 : ' + val);
-        console.log('Fecha 2 : ' + new Date(val));
+      callback: function (fechaInicio) {  //Mandatory
+        console.log('Fecha 1 : ' + fechaInicio);
+        console.log('Fecha 2 : ' + new Date(fechaInicio));
 
-        var date = new Date (val);
+
+
+        var date = new Date(fechaInicio);
+        date.setMonth(date.getMonth() + 1)
+
+        var dateToShow = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+        $scope.fechaInicio = dateToShow
+        var formattedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
         var formattedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
         console.log(formattedDate);
 
       },
-/*       disabledDates: [            //Optional
-        new Date(2016, 2, 16),
-        new Date(2015, 3, 16),
-        new Date(2015, 4, 16),
-        new Date(2015, 5, 16),
-        new Date('Wednesday, August 12, 2015'),
-        new Date("08-16-2016"),
-        new Date(1439676000000)
-      ], */
-/*       from: new Date(2012, 1, 1), //Optional
-      to: new Date(2016, 10, 30), //Optional */
-/*       inputDate: new Date(),      //Optional
-      mondayFirst: true,          //Optional
-      disableWeekdays: [0],       //Optional
-      closeOnSelect: false,       //Optional
-      templateType: 'popup'       //Optional*/
-    }; 
+      mondayFirst: true,
+      weeksList: ["D", "L", "M", "M", "J", "V", "S"],
+      monthsList: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Nov", "Dic"],
+      showTodayButton: true,
+      setLabel: 'OK',
+      todayLabel: 'HOY',
+      closeLabel: '<i class="icon ion-android-close"></i>',
+      from: new Date(2016, 1, 1),
+      to: new Date(2025, 10, 30),
+      templateType: 'popup'
+    };
 
-    $scope.openDatePicker = function () {
+    var ipObj2 = {
+      callback: function (fechaFinal) {  //Mandatory
+
+        var date = new Date(fechaFinal);
+        date.setMonth(date.getMonth()+1)
+
+        var dateToShow = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+        $scope.fechaFinal=dateToShow
+        var formattedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
+
+        console.log('date', date)
+        console.log('date.getDate', date.getDate)
+        console.log('dateToShow', dateToShow)
+
+        console.log('formattedDate', formattedDate);
+
+      },
+      mondayFirst: true,
+      weeksList: ["D", "L", "M", "M", "J", "V", "S"],
+      monthsList: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Nov", "Dic"],
+      showTodayButton: true,
+      setLabel: 'OK',
+      todayLabel: 'HOY',
+      closeLabel: '<i class="icon ion-android-close"></i>',
+      from: new Date(2016, 1, 1),
+      to: new Date(2025, 10, 30),
+      templateType: 'popup'
+    };
+
+    $scope.openDPInit = function () {
       ionicDatePicker.openDatePicker(ipObj1);
     };
 
-    
+    $scope.openDPFinal = function () {
+      ionicDatePicker.openDatePicker(ipObj2);
+    };
+
 
 
 

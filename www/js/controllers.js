@@ -15,13 +15,23 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
   .controller('StatsCtrl', function ($scope, ionicToast, ionicDatePicker) {
 
+
+    //Tickets
+    $scope.tickets = 1392
+
     //Variables que componen la gráfica de los meses
     $scope.c1labels = ["May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov"];
     $scope.c1data = [[28, 48, 40, 19, 86, 27, 90]];
+    $scope.c1series = ['Tickets'];
 
     //Gráfica dona de los estados
     $scope.c2labels = ["Nuevos", "En proceso", "Cerrados"];
-    $scope.c2data = [300, 500, 100];
+    $scope.c2data = [20, 30, 50];
+
+    //Grafica de estrellas
+    $scope.c3labels = ["1", "2", "3", "4", "5"];
+    $scope.c3data = [30, 56, 45, 60, 100 ];
+    $scope.c3series = ['Series A', 'Series B'];
 
 
     $scope.onClick = function (points, evt) {
@@ -65,7 +75,13 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     };
 
     var ipObj2 = {
-      callback: function (fechaFinal) {  //Mandatory
+      callback: function (fechaFinal) {
+        
+        
+        $scope.c1data = [[200, 20, 40, 100, 90, 20, 14]];
+        $scope.c2data = [69, 23, 39];
+        $scope.tickets = 724
+        //Mandatory
 
         var date = new Date(fechaFinal);
         date.setMonth(date.getMonth()+1)

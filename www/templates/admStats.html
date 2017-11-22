@@ -10,48 +10,50 @@
         <br>
         <center>
 
-            <div class=" padding">
+            <div class="padding">
                 <div class=" padding text-center">
-                    <h4 class="grey-text ">Filtrado por fechas</h3>
-                        <p class="grey-text">Introduzca un rango</p>
-                        <div class="row">
-                            <div class="col left-align">
-                                <button ng-click="openDPInit()" class="bckblue white-text button button-outline button-light"> Fecha inicio</button>
-                                <p class="grey-text dateStart">{{fechaInicio}}</p>
-                            </div>
-                            <div class="col right-align">
-                                <button ng-click="openDPFinal()" class="bckblue white-text button button-outline button-light">Fecha final</button>
-                                <p class="grey-text dateEnd">{{fechaFinal}}</p>
-
-                            </div>
+                    <h4 class="grey-text ">Filtrado por fechas</h4>
+                    <p class="grey-text">Introduzca un rango</p>
+                    <div class="row">
+                        <div class="col left-align">
+                            <button ng-click="openDPInit()" class="bckblue white-text button button-outline button-light"> Fecha inicio</button>
+                            <p class="grey-text dateStart">{{fechaInicio}}</p>
                         </div>
-
-
+                        <div class="col right-align">
+                            <button ng-click="openDPFinal()" class="bckblue white-text button button-outline button-light">Fecha final</button>
+                            <p class="grey-text dateEnd">{{fechaFinal}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-
 
             <div class="card padding">
                 <div class=" text-center">
-
-                    <h1 class="bluet">1392</h1>
+                    <h1 class="bluet">{{tickets}}</h1>
                     <h4 class="grey-text" style=" color:rgb(255, 65, 65)">TICKETS</h4>
                     <p class="grey-text">(9234 en total)</p>
-
-
-
                 </div>
             </div>
 
             <div class="card">
                 <div class=" padding text-center">
-                    <h4 class="grey-text ">Ultimos tickets</h3>
-                        <p class="grey-text">Realizados en los ultimos seis meses</p>
-                        <br>
+                    <h4 class="grey-text ">Ultimos tickets</h4>
+                    <p class="grey-text">Realizados en los ultimos seis meses</p>
+                    <br>
+                     
+                    <canvas id="line" class="chart chart-line left" chart-series="c1series" chart-data="c1data" chart-labels="c1labels" chart-series="c1series" chart-options="c1options"
+                        chart-dataset-override="datasetOverride" chart-click="onClick">
+                    </canvas>
+                </div>
+            </div>
 
-                        <canvas id="line" class="chart chart-line left" chart-data="c1data" chart-labels="c1labels" chart-series="c1series" chart-options="c1options"
-                            chart-dataset-override="datasetOverride" chart-click="onClick">
-                        </canvas>
+            <div class="card">
+                <div class=" padding text-center">
+                    <h4 class="grey-text ">Estado de los tickets</h4>
+                    <p class="grey-text">Actualmente, así se encuentran sus tickets</p>
+
+                    <canvas id="doughnut" class="chart chart-doughnut" chart-data="c2data" chart-labels="c2labels">
+                    </canvas>
                 </div>
             </div>
 
@@ -59,32 +61,16 @@
 
             <div class="card">
                 <div class=" padding text-center">
-                    <h4 class="grey-text ">Estado de los tickets</h3>
-                        <p class="grey-text">Actualmente, así se encuentran sus tickets</p>
+                    <h4 class="grey-text ">Calificaciones</h4>
+                    <p class="grey-text">Número de estrellas (<i class="icon ion-android-star"></i>) obtenidas</p>
+                    <br>
 
-                        <canvas id="doughnut" class="chart chart-doughnut" chart-data="c2data" chart-labels="c2labels">
-                        </canvas>
+                    <canvas id="base" chart-series="c3series" class="chart-horizontal-bar" chart-data="c3data" chart-labels="c3labels">
+                    </canvas>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col"></div>
-                <div class=" col divider text-center"></div>
-                <div class="col"></div>
             </div>
 
             <button class="button button-block" ng-click="showToast()">Show Toast at top with close</button>
-
-
         </center>
-
-
-
-
-
-
-
-
-
     </ion-content>
 </ion-view>

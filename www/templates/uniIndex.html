@@ -11,7 +11,7 @@
             <div class="list">
 
                 <!-- ng-repeat="x in names | filter : 'i'" -->
-                <a class="item item-avatar"  href="#/app/uni/{{option.folio}}" ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket | orderBy:'-folio'">
+                <a class="item item-avatar" href="#/app/uni/{{option.folio}}" ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket | orderBy:'-folio'">
                     <!-- 5, 2, 6, 3 -->
                     <img src="img/tickets/6.png">
                     <h2>{{option.asunto}}</h2>
@@ -19,8 +19,13 @@
                 </a>
             </div>
         </div>
+
+        <div ng-bind-html="emptyMessage" class="valign">
+            
+        </div>
+
     </ion-content>
     <button class=" button button-float" ng-click="vm.showAddSheet()">
-        <i class="icon ion-navicon-round"></i>
+        <i class="icon ion-edit"></i>
     </button>
 </ion-view>

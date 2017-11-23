@@ -47,6 +47,8 @@ color: #57A2FA !important;
     margin: auto;
 }
 
+
+
 .icon-margin{
     font-size: 10px !important;
 }
@@ -305,4 +307,31 @@ color: #57A2FA !important;
 
 .dateEnd{
     margin-right: 2% !important;
+}
+
+.padding-sides{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.grey-strng{
+    color: #263238 !important;
+}
+
+.button-normal{
+    border: 0px solid transparent !important;
+    background-color: transparent !important;
+}
+
+.float-right{
+    width: 40% !important;
+    float: right !important;
+}
+
+.valign{
+  position: relative;
+  
+  -webkit-transform: translateY(40%);
+  -ms-transform: translateY(40%);
+  transform: translateY(40%);
 }

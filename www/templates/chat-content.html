@@ -15,24 +15,26 @@
             <div class="item item-avatar">
                 <img src="img/mcfly.jpg">
                 <!-- Asunto del ticket -->
-                <h2>{{vm.at.peticion}}</h2>
+                <p>{{vm.at.solicitante}}</p>
                 <!-- Fecha de emision -->
                 <p>{{vm.at.fechaAlta}}</p>
             </div>
-
+        
             <div class="item item-body">
                 <!-- Initial message -->
-                <p>{{vm.at.init}}</p>
-                    <div class="row">
-                        <!-- Calificacion -->
-                        <span class="col subdued left" ng-bind-html="vm.rate"></span>
-                        <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
-                        <span class="col subdued right">
-                            <p href="#"  class=" cerrado right">{{vm.at.status}}</p>
-                        </span>
-                    </div>
-
-
+                <div class="padding-sides">
+                    <h3 class="grey-strng">{{vm.at.peticion}}</h3>
+                    <p>{{vm.at.init}}</p>
+                </div>
+        
+                <div class="padding-sides row">
+                    <!-- Calificacion -->
+                    <span class="col subdued left" ng-bind-html="vm.rate"></span>
+                    <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
+                    <span class="col subdued right">
+                        <p href="#" class=" cerrado right">{{vm.at.status}}</p>
+                    </span>
+                </div>
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 <!-- Esta vista representa el contenido de una conversación (O ticket) -->
 
 <ion-view hide-nav-bar="true" title="Ticket {{vm.at.folio}}">
-    <div class="bar bar-header">
+    <div class="bar bar-clear bar-header">
         <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
         <div class="h1 bluedeep title">Ticket {{vm.at.folio}}</div>
         <button class="smaller bluedeep button icon ion-edit" ng-click="vm.EditTi()"></button>
@@ -22,12 +22,12 @@
 
             <div class="item item-body">
                 <!-- Initial message -->
-                <div class="padding">
-                    <h2 class="b grey-text">{{vm.at.peticion}}</h2>
+                <div class="padding-sides">
+                    <h3 class="grey-strng">{{vm.at.peticion}}</h3>
                     <p>{{vm.at.init}}</p>
                 </div>
 
-                <div class="row">
+                <div class="padding-sides row">
                     <!-- Calificacion -->
                     <span class="col subdued left" ng-bind-html="vm.rate"></span>
                     <!-- Status del reporte (Debería de poder editarse si el usuario tiene el rol adecuado para hacerlo -->
@@ -35,8 +35,6 @@
                         <p href="#" class=" cerrado right">{{vm.at.status}}</p>
                     </span>
                 </div>
-
-
             </div>
         </div>
 

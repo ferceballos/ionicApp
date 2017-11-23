@@ -30,7 +30,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
     //Grafica de estrellas
     $scope.c3labels = ["1", "2", "3", "4", "5"];
-    $scope.c3data = [30, 56, 45, 60, 100 ];
+    $scope.c3data = [30, 56, 45, 60, 100];
     $scope.c3series = ['Series A', 'Series B'];
 
 
@@ -46,7 +46,8 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
     var ipObj1 = {
-      callback: function (fechaInicio) {  //Mandatory
+      callback: function (fechaInicio) {
+        $ionicScrollDelegate.scrollBottom(); //Mandatory
         console.log('Fecha 1 : ' + fechaInicio);
         console.log('Fecha 2 : ' + new Date(fechaInicio));
 
@@ -76,18 +77,18 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
     var ipObj2 = {
       callback: function (fechaFinal) {
-        
-        
+
+
         $scope.c1data = [[200, 20, 40, 100, 90, 20, 14]];
         $scope.c2data = [69, 23, 39];
         $scope.tickets = 724
         //Mandatory
 
         var date = new Date(fechaFinal);
-        date.setMonth(date.getMonth()+1)
+        date.setMonth(date.getMonth() + 1)
 
         var dateToShow = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
-        $scope.fechaFinal=dateToShow
+        $scope.fechaFinal = dateToShow
         var formattedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
 
         console.log('date', date)
@@ -126,7 +127,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
   // Content controller para el universitario
 
-  .controller('ContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams, $interval) {
+  .controller('ContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams, $interval, $ionicScrollDelegate) {
 
     //Variables
     var vm = this;
@@ -172,6 +173,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
       console.log('messageInput', messageInput)
       $http.get(site + '/tickets/mod/message/' + user.id + '/' + $stateParams.chatId + '/' + messageInput).
         then(function (resultado) {
+
 
           console.log('Mensaje enviado')
           allMessages = [];
@@ -241,6 +243,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
       vm.chatMessages = chatMessages;
 
       console.log('processMeesages end')
+      $ionicScrollDelegate.scrollBottom();
     }
 
     function goToMenu() {
@@ -326,7 +329,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/3').
             then(function (resultado) {
               if (resultado.data.code == 2) {
-                doToast(resultado.data.msg)
+                ionicToast.show(resultado.data.msg, 'top', false, 2500);
               }
 
               else {
@@ -351,7 +354,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           $http.get(site + '/tickets/mod/rate/' + $stateParams.chatId + '/' + (index + 1)).
             then(function (resultado) {
               if (resultado.data.code == 2) {
-                doToast(resultado.data.msg)
+                ionicToast.show(resultado.data.msg, 'top', false, 2500);
               }
 
               else {
@@ -366,7 +369,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
 
-  .controller('BibContentCtrl', function ($scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams, $interval) {
+  .controller('BibContentCtrl', function (ionicToast, $scope, $ionicPopup, $ionicActionSheet, $state, $http, $rootScope, $stateParams, $interval) {
 
     //Variables
     var vm = this;
@@ -382,23 +385,23 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     vm.sendMessage = sendMessage;
     vm.getMessages = getMessages;
 
-    // vm.stopLoading = stopLoading;
+    vm.stopLoading = stopLoading;
+
+    var count = 0;
+    var nIntervId;
+    nIntervId = setInterval(loader, 1000);
 
 
-    /* 
-        var nIntervId;
-        nIntervId = setInterval(loader, 1000);
-    
-    
-        function loader() {
-          console.log(count);
-          count++;
-        }
-    
-        function stopLoading() {
-          clearInterval(nIntervId);
-        } */
+    function loader() {
+      console.log(count);
+      count++;
+      getMessages()
+      getHeaderInformation()
+    }
 
+    function stopLoading() {
+      clearInterval(nIntervId);
+    }
 
 
     function sendMessage() {
@@ -484,7 +487,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
     function goToMenu() {
       //$stateParams.chatId = undefined;
-      //vm.stopLoading();
+      stopLoading();
       chatMessages = "";
       $state.go('app.bib');
     }
@@ -545,6 +548,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
 
+
     function EditTi() {
       $ionicActionSheet.show({
         titleText: 'Editar ticket', buttons: [{ text: '<i class="icon ion-chatbox-working"></i> Atender' }], destructiveText: '<i class="icon ion-android-done"></i> Cerrar', cancelText: 'Cancel', cancel: function () {
@@ -552,14 +556,18 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
         }, buttonClicked: function (index) {
 
           //atender
-          if (index == 0 && vm.at.status != 'Cerrado') {
+          if (index == 0 && vm.at.status == 'Cerrado') {
+            ionicToast.show('No se puede atender un ticket cerrado', 'top', false, 3000);
+
+          }
+          else if (index == 0 && vm.at.status != 'Cerrado') {
             var resultado = [];
             //Editar el status del ticket a en proceso
 
             $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/2').
               then(function (resultado) {
                 if (resultado.data.code == 2) {
-                  doToast(resultado.data.msg)
+                  ionicToast.show(resultado.data.msg, 'top', false, 2500);
                 }
 
                 else {
@@ -571,7 +579,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
             $http.get(site + '/tickets/mod/librarian/' + $stateParams.chatId + '/' + user.id).
               then(function (resultado) {
                 if (resultado.data.code == 2) {
-                  doToast(resultado.data.msg)
+                  ionicToast.show(resultado.data.msg, 'top', false, 2500);
                 }
 
                 else {
@@ -592,7 +600,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/3').
             then(function (resultado) {
               if (resultado.data.code == 2) {
-                doToast(resultado.data.msg)
+                ionicToast.show(resultado.data.msg, 'top', false, 2500);
               }
 
               else {
@@ -616,7 +624,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           $http.get(site + '/tickets/mod/rate/' + $stateParams.chatId + '/' + (index + 1)).
             then(function (resultado) {
               if (resultado.data.code == 2) {
-                doToast(resultado.data.msg)
+                ionicToast.show(resultado.data.msg, 'top', false, 2500);
               }
 
               else {
@@ -650,20 +658,18 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     // vm.stopLoading = stopLoading;
 
 
-    /* 
-        var nIntervId;
-        nIntervId = setInterval(loader, 1000);
-    
-    
-        function loader() {
-          console.log(count);
-          count++;
-        }
-    
-        function stopLoading() {
-          clearInterval(nIntervId);
-        } */
+    var nIntervId;
+    nIntervId = setInterval(loader, 1000);
 
+
+    function loader() {
+      getMessages()
+      getHeaderInformation()
+    }
+
+    function stopLoading() {
+      clearInterval(nIntervId);
+    }
 
 
     function sendMessage() {
@@ -749,7 +755,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
     function goToMenu() {
       //$stateParams.chatId = undefined;
-      //vm.stopLoading();
+      stopLoading()
       chatMessages = "";
       $state.go('app.res');
     }
@@ -830,7 +836,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
             $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/2').
               then(function (resultado) {
                 if (resultado.data.code == 2) {
-                  doToast(resultado.data.msg)
+                  ionicToast.show(resultado.data.msg, 'top', false, 2500);
                 }
 
                 else {
@@ -848,7 +854,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
             $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/3').
               then(function (resultado) {
                 if (resultado.data.code == 2) {
-                  doToast(resultado.data.msg)
+                  ionicToast.show(resultado.data.msg, 'top', false, 2500);
                 }
 
                 else {
@@ -866,7 +872,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
             /*             $http.get(site + '/tickets/mod/librarian/' + $stateParams.chatId + '/2').
                           then(function (resultado) {
                             if (resultado.data.code == 2) {
-                              doToast(resultado.data.msg)
+                               ionicToast.show(resultado.data.msg, 'top', false, 2500);
                             }
             
                             else {
@@ -901,7 +907,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           $http.get(site + '/tickets/mod/rate/' + $stateParams.chatId + '/' + (index + 1)).
             then(function (resultado) {
               if (resultado.data.code == 2) {
-                doToast(resultado.data.msg)
+                ionicToast.show(resultado.data.msg, 'top', false, 2500);
               }
 
               else {
@@ -934,17 +940,13 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     // vm.stopLoading = stopLoading;
 
 
-
     var nIntervId;
     nIntervId = setInterval(loader, 1000);
 
 
     function loader() {
-      console.log(count);
-      count++;
       getMessages()
       getHeaderInformation()
-
     }
 
     function stopLoading() {
@@ -1036,7 +1038,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
     function goToMenu() {
       //$stateParams.chatId = undefined;
-      stopLoading();
+      stopLoading()
       chatMessages = "";
       $state.go('app.uni');
     }
@@ -1116,7 +1118,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           $http.get(site + '/tickets/mod/status/' + $stateParams.chatId + '/3').
             then(function (resultado) {
               if (resultado.data.code == 2) {
-                doToast(resultado.data.msg)
+                ionicToast.show(resultado.data.msg, 'top', false, 2500);
               }
 
               else {
@@ -1141,7 +1143,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           $http.get(site + '/tickets/mod/rate/' + $stateParams.chatId + '/' + (index + 1)).
             then(function (resultado) {
               if (resultado.data.code == 2) {
-                doToast(resultado.data.msg)
+                ionicToast.show(resultado.data.msg, 'top', false, 2500);
               }
 
               else {
@@ -1162,9 +1164,8 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
 
-  .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {
+  .controller('uniIndexCtrl', function (ionicToast, $scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {
     var vm = this;
-
 
     function doToast(string) {
       var toast = $ionicPopup.show({
@@ -1198,38 +1199,25 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
     //Functions
     function reloadUniTickets() {
+      $rootScope.emptyMessage = "";
       $http.get(site + '/tickets/getbyuser/' + user.id).
         then(function (resultado) {
           var allTickets = [];
 
-          if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
+
+          if (resultado.data.code == 2) {
+            $rootScope.emptyMessage = " <div class='padding grey-text text-center'><img class='padding' src='img/empty2.png' width='45%'> <br> <p>Parece que no hay  ninguna pregunta  por aquí</p><p>si desdeas hacer una, sólo toca el <b>botón verde</b></p></div>   "
+          }
 
           else {
-
             var depOptions = resultado.data.ticketito;
-
 
             $rootScope.ticketsOfUni = {
               availableOptions: depOptions
             };
-
+            $rootScope.emptyMessage= "";
           }
         });
-    }
-
-
-    function doToast(string) {
-      var toast = $ionicPopup.show({
-        title: string,
-        buttons: [
-          { text: 'OK' }
-        ]
-      });
-
-      toast.then(function (res) {
-        //Do something
-      });
     }
 
     function goToUni() {
@@ -1256,109 +1244,13 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     };
 
     function showAddSheet() {
-      $state.go('app.addTicket');
-    };
-
-  })
-
-  .controller('uniIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {
-    var vm = this;
-
-
-    function doToast(string) {
-      var toast = $ionicPopup.show({
-        title: string,
-        buttons: [
-          { text: 'OK' }
-        ]
-      });
-
-      toast.then(function (res) {
-        //Do something
-      });
-    }
-
-    reloadUniTickets();
-
-
-    //Obtener los reportes de un usuario
-    var resultado = [];
-    var depOptions = [];
-
-
-
-    //Declarations of functions
-    vm.goToUni = goToUni;
-    vm.goToCreate = goToCreate;
-    vm.showActionSheet = showActionSheet;
-    vm.showAddSheet = showAddSheet;
-
-
-
-    //Functions
-    function reloadUniTickets() {
-      $http.get(site + '/tickets/getbyuser/' + user.id).
-        then(function (resultado) {
-          var allTickets = [];
-
-          if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
-
-          else {
-
-            var depOptions = resultado.data.ticketito;
-
-
-            $rootScope.ticketsOfUni = {
-              availableOptions: depOptions
-            };
-
-          }
-        });
-    }
-
-
-    function doToast(string) {
-      var toast = $ionicPopup.show({
-        title: string,
-        buttons: [
-          { text: 'OK' }
-        ]
-      });
-
-      toast.then(function (res) {
-        //Do something
-      });
-    }
-
-    function goToUni() {
-      $state.go('app.uni')
-    }
-
-    function goToCreate(params) {
       $ionicViewSwitcher.nextDirection('forward');
       $state.go('app.addTicket');
-    }
-
-    function showActionSheet() {
-      $ionicActionSheet.show({
-        titleText: 'ActionSheet Example', buttons: [{ text: '<i class="icon ion-share"></i> Share' }, { text: '<i class="icon ion-arrow-move"></i> Move' },], destructiveText: 'Delete', cancelText: 'Cancel', cancel: function () {
-          console.log('CANCELLED');
-        }, buttonClicked: function (index) {
-          console.log('BUTTON CLICKED', index)
-          return true;
-        }, destructiveButtonClicked: function () {
-          console.log('DESTRUCT');
-          return true;
-        }
-      });
-    };
-
-    function showAddSheet() {
-      $state.go('app.addTicket');
     };
 
   })
+
+
 
   // CONTROLLER FOR RESPONSABLE
   .controller('resIndexCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup, $rootScope, $ionicActionSheet, $ionicViewSwitcher) {
@@ -1682,7 +1574,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           var allTickets = [];
 
           if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
 
           else {
 
@@ -1742,7 +1634,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
 
-  .controller('uniAddTicketCtrl', function ($scope, $stateParams, $state, $http, $ionicViewSwitcher, $rootScope, $ionicPopup, $ionicActionSheet) {
+  .controller('uniAddTicketCtrl', function (ionicToast, $scope, $stateParams, $state, $http, $ionicViewSwitcher, $rootScope, $ionicPopup, $ionicActionSheet) {
     var vm = this;
 
 
@@ -1758,10 +1650,14 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     function reloadUniTickets(params) {
       $http.get(site + '/tickets/getbyuser/' + user.id).
         then(function (resultado) {
+          $rootScope.emptyMessage = ""
           var allTickets = [];
 
-          if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
+          if (resultado.data.code == 2){
+            $rootScope.emptyMessage = " <div class='padding grey-text text-center'><img class='padding' src='img/empty2.png' width='45%'> <br> <p>Parece que no hay  ninguna pregunta  por aquí</p><p>si desdeas hacer una, sólo toca el <b>botón verde</b></p></div>   "
+
+          }
+       
 
           else {
 
@@ -1770,6 +1666,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
             $rootScope.ticketsOfUni = {
               availableOptions: depOptions
             };
+            $rootScope.emptyMessage = ""
           }
         });
     }
@@ -1801,7 +1698,8 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
       // validar que exista un asunto
       if (peti == undefined || peti == "") {
-        doToast('El asunto es obligatorio');
+        ionicToast.show('El asunto es obligatorio', 'top', false, 2500);
+
       }
 
       else {
@@ -1822,7 +1720,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
             console.log(resultado.data.msg);
             //Problema al crear el ticket
             if (resultado.data.code == 2)
-              doToast(resultado.data.msg)
+              ionicToast.show(resultado.data.msg, 'top', false, 2500);
 
             //Ticket creado con éxito
             else if (resultado.data.code == 1) {
@@ -1873,7 +1771,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
           //There was a problem getting the users from the database
           if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
 
           //All the users were bring succesfully
           else {
@@ -1891,7 +1789,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
           //There was a problem getting the users from the database
           if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
 
           //All the users were bring succesfully
           else {
@@ -1957,7 +1855,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
 
-  .controller('LoginCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup) {
+  .controller('LoginCtrl', function (ionicToast, $scope, $stateParams, $state, $http, $ionicPopup) {
     var vm = this;
     var mail = "";
     var pwd = "";
@@ -1997,9 +1895,9 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
           //El correo no existe en la base de datos
           if (resultado.data.code != 3)
-            doToast(resultado.data.msg)
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
           else if (resultado.data.code == 2)
-            doToast(resultado.data.msg)
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
 
           //Credenciales correctas
           else if (resultado.data.code == 3) {
@@ -2030,7 +1928,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
   })
 
 
-  .controller('SignupCtrl', function ($scope, $stateParams, $state, $http, $ionicPopup) {
+  .controller('SignupCtrl', function (ionicToast, $scope, $stateParams, $state, $http, $ionicPopup) {
     var vm = this;
     var names = "", lasts = "", mail = "", pwd = "", dep = "";
     var depOptions = [];
@@ -2085,35 +1983,41 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     }
 
     function doSignup() {
-      name = vm.name;
+      names = vm.name;
       mail = vm.email;
       pwd = vm.pwd;
       dep = vm.dep;
 
       console.log(names, lasts, mail, pwd, dep);
 
-      if (names == undefined)
-        doToast('Por favor, introduzca un nombre');
+      if (names == undefined || names == '')
+        ionicToast.show('Por favor, introduzca su nombre', 'top', false, 2500);
+
       else if (mail == undefined)
-        doToast('Por favor,  ingrese un correo');
+        ionicToast.show('Por favor,  ingrese un correo', 'top', false, 2500);
+
       else if (!mail.includes('@ucol.mx'))
-        doToast('El correo debe contener \'@ucol.mx\' ');
+        ionicToast.show('El correo debe contener \'@ucol.mx\' ', 'top', false, 2500);
+
       else if (pwd == undefined)
-        doToast('Defina una contraseña');
+        ionicToast.show('Defina una contraseña', 'top', false, 2500);
+
       else if (dep == undefined)
-        doToast('Eliga la dependencia a la que pertenece (o la más cercana a usted)');
+        ionicToast.show('Eliga la dependencia a la que pertenece (o la más cercana a usted)', 'top', false, 2500);
+
 
       //Todos los datos han sido introducidos
       else {
         var resultado = [];
-        $http.get(site + '/users/signup/' + name + '/' + mail + '/' + pwd + '/1/' + dep).
+        $http.get(site + '/users/signup/' + names + '/' + mail + '/' + pwd + '/1/' + dep).
           then(function (resultado) {
             if (resultado.data.code == 2) {
-              doToast(resultado.data.msg)
+              ionicToast.show(resultado.data.msg, 'top', false, 2500);
             }
 
             else if (resultado.data.code == 1) {
-              doAlert(resultado.data.msg)
+              ionicToast.show(resultado.data.msg, 'top', false, 2500);
+              goToLogin();
             }
           });
 

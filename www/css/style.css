@@ -328,6 +328,11 @@ color: #57A2FA !important;
     float: right !important;
 }
 
+.float-left{
+
+    float: left !important;
+}
+
 .valign{
   position: relative;
   

@@ -25,30 +25,30 @@
         <span class="input-label">Correo</span>
         <input class="grey-text" type="text" ng-model="vm.email">
       </label>
+
       <label class="item item-input">
         <span class="input-label">Contraseña</span>
         <input class="grey-text" type="password" ng-model="vm.pwd">
       </label>
+
       <label class="item item-input item-select text-left">
         <div class="input-label">
           Dependencia
         </div>
-      <select name="repeatSelect" id="repeatSelect" ng-model="vm.dep">
+      <select class="float-left" name="repeatSelect" id="repeatSelect" ng-model="vm.dep">
         <option ng-repeat="option in select.availableOptions" value="{{option.id}}">{{option.nombre}}</option>
       </select>
       </label>
+
     </div>
 
     <center>
       <br>
-
       <div>
         <button class="button button-outline button-light" ng-click="vm.doSignup()">Registrarse</button>
       </div>
-
       <br>
-
     </center>
-
+    
   </ion-content>
 </ion-view>

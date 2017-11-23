@@ -1855,7 +1855,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
 
-  .controller('LoginCtrl', function (ionicToast, $scope, $stateParams, $state, $http, $ionicPopup) {
+  .controller('LoginCtrl', function ( $ionicViewSwitcher,ionicToast, $scope, $stateParams, $state, $http, $ionicPopup) {
     var vm = this;
     var mail = "";
     var pwd = "";
@@ -1878,6 +1878,8 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     }
 
     function goToSignup() {
+      $ionicViewSwitcher.nextDirection('forward');
+
       $state.go('app.signup');
     }
 

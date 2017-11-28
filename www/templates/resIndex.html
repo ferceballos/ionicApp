@@ -1,23 +1,87 @@
-<ion-view hide-nav-bar="true">
-    <div class="bar bar-clear item-input-inset">
-
-        <label class="item-input-wrapper text-center">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Buscar" ng-model="vm.searchTicket">
-        </label>
-
+<ion-view cache-view="false" hide-nav-bar="true">
+    <div class="bar bar-header bar-light">
+        <h1 class="title">Consultas</h1>
     </div>
-    <ion-content>
-        <div class="content">
-            <div class="list">
 
-                <!-- ng-repeat="x in names | filter : 'i'" -->
-                <a class="item item-avatar" href="#/app/res/{{option.folio}}" ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket | orderBy:'-folio'">
-                    <!-- 5, 2, 6, 3 -->
-                    <img src="https://static.pexels.com/photos/185764/pexels-photo-185764.jpeg">
-                    <h2>{{option.peticion}}</h2>
-                    <p>{{option.init}}</p>
-                </a>
+
+    <ion-content class="bgr-light-bluegr">
+
+        <div class="content">
+
+            <div id="top-part" class="soft padding">
+                <div class="padding">
+                    <img src="img/chatting.svg" width="45%" class="center">
+                </div>
+            </div>
+
+            <div id="bot-part" class="padding">
+
+
+
+                <div class="list">
+                    <div class="list-inset card">
+                        <label class="item item-input">
+                            <i class="icon ion-search placeholder-icon"></i>
+                            <input type="search" placeholder="Buscar tickets" ng-model="vm.searchUsers">
+
+                        </label>
+                    </div>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-university" style="margin-right:1%"></i>
+                        ASIGNADAS A MI BIBLIOTECA
+                    </div>
+
+                    <a class="item item-avatar" href="#/app/res/{{ticket.folio}}" ng-repeat="ticket in assignedTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                        <!-- 5, 2, 6, 3 -->
+                        <img src="img/q.svg">
+                        
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
+                    </a>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-android-open" style="margin-right:1%"></i>
+                        NUEVOS
+                    </div>
+
+                    <a class="item item-avatar" href="#/app/res/{{ticket.folio}}" ng-repeat="ticket in newTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                        <!-- 5, 2, 6, 3 -->
+                        <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
+                    </a>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-chatbox-working" style="margin-right:1%"></i>
+                        EN PROCESO
+                    </div>
+
+
+                    <a class="item item-avatar" href="#/app/res/{{ticket.folio}}" ng-repeat="ticket in doingTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                        <!-- 5, 2, 6, 3 -->
+                                            <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
+                    </a>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-android-done" style="margin-right:1%"></i>
+                        CERRADOS
+                    </div>
+
+                    <a class="item item-avatar" href="#/app/res/{{ticket.folio}}" ng-repeat="ticket in doneTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                        <!-- 5, 2, 6, 3 -->
+                                            <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
+                    </a>
+
+
+
+
+                </div>
+
             </div>
         </div>
     </ion-content>

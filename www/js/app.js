@@ -54,6 +54,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
       .state('app.uni-detail', {
         url: '/uni/:chatId',
+        cache: false,
+
         views: {
           'menuContent': {
             templateUrl: 'templates/chat-content.html',
@@ -106,6 +108,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
       .state('app.res-detail', {
         url: '/res/:chatId',
+        cache: false,
+
         views: {
           'menuContent': {
             templateUrl: 'templates/res-chat-content.html',
@@ -128,6 +132,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
       .state('app.bib-detail', {
         url: '/bib/:chatId',
+        cache: false,
+
         views: {
           'menuContent': {
             templateUrl: 'templates/bib-chat-content.html',
@@ -170,7 +176,25 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
+      .state('app.welcome', {
+        url: '/welcome',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/welcome.html',
+            controller: 'WelcomeCtrl as vm'
+          }
+        }
+      })
 
+      .state('app.asignar', {
+        url: '/asignar',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/asignar.html',
+            controller: 'asignarCtrl as vm'
+          }
+        }
+      })
 
 
 
@@ -193,7 +217,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           }
         }
       });
+
+
     // if none of the above states are matched, use this as the fallback
-    //$urlRouterProvider.otherwise('/app/stats'); 
     $urlRouterProvider.otherwise('/app/login');
+    //$urlRouterProvider.otherwise('/app/welcome');
   });

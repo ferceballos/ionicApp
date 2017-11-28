@@ -13,6 +13,10 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
   })
 
+  .controller('WelcomeCtrl', function ($scope) {
+
+  })
+
   .controller('StatsCtrl', function ($scope, ionicToast, ionicDatePicker) {
 
 
@@ -866,20 +870,11 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
           //asignar  mod/librarian/:idt/:idb
           else if (index == 2) {
-            var resultado = [];
-            //Editar el status del ticket a cerrado
 
-            /*             $http.get(site + '/tickets/mod/librarian/' + $stateParams.chatId + '/2').
-                          then(function (resultado) {
-                            if (resultado.data.code == 2) {
-                               ionicToast.show(resultado.data.msg, 'top', false, 2500);
-                            }
-            
-                            else {
-                              getHeaderInformation()
-                            }
-                          }); */
-
+            stopLoading();
+            $rootScope.ticketAAsignar = $stateParams.chatId;
+            console.log($rootScope.ticketAAsignar)
+            $state.go("app.asignar")
           }
 
           //transferir
@@ -1215,7 +1210,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
             $rootScope.ticketsOfUni = {
               availableOptions: depOptions
             };
-            $rootScope.emptyMessage= "";
+            $rootScope.emptyMessage = "";
           }
         });
     }
@@ -1257,21 +1252,6 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     var vm = this;
 
 
-    function doToast(string) {
-      var toast = $ionicPopup.show({
-        title: string,
-        buttons: [
-          { text: 'OK' }
-        ]
-      });
-
-      toast.then(function (res) {
-        //Do something
-      });
-    }
-
-    reloadResTickets();
-
 
     //Obtener los reportes de un usuario
     var resultado = [];
@@ -1288,9 +1268,28 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
     //Functions
-    function reloadResTickets() {
+    function getAssignedTickets() {
+      console.log('star get assignedtickets')
       var resultado = [];
-      $http.get(site + '/tickets/getAll').
+      $http.get(site + '/tickets/getByLibrarian/' + user.id).
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            console.log('codigo 2 en getAssignedTickets')
+
+          else {
+            console.log('assignedTickets', resultado.data.ticketito)
+            $scope.assignedTickets = resultado.data.ticketito;
+          }
+
+          console.log('getAssigned terminado')
+        });
+    }
+
+    function getNewTickets() {
+      var resultado = [];
+      $http.get(site + '/tickets/getByNew').
         then(function (resultado) {
           var allTickets = [];
 
@@ -1298,17 +1297,64 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
             console.log(resultado.data.msg)
 
           else {
-
-            var depOptions = resultado.data.ticketito;
-
-
-            $rootScope.ticketsOfUni = {
-              availableOptions: depOptions
-            };
-
+            $scope.newTickets = resultado.data.ticketito;
           }
         });
     }
+
+    function getInProcessTickets() {
+      var resultado = [];
+      $http.get(site + '/tickets/getByDoing/' + user.id).
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            console.log(resultado.data.msg)
+
+          else {
+            $scope.doingTickets = resultado.data.ticketito;
+          }
+        });
+    }
+
+    function getDoneTickets() {
+
+      var resultado = [];
+      $http.get(site + '/tickets/getByDone').
+        then(function (resultado) {
+          var allTickets = [];
+
+          if (resultado.data.code == 2)
+            console.log(resultado.data.msg)
+
+          else {
+            $scope.doneTickets = resultado.data.ticketito;
+          }
+        });
+
+    }
+
+    function reload() {
+      getAssignedTickets();
+      getNewTickets();
+      getInProcessTickets();
+      getDoneTickets();
+
+    }
+
+    var indexInterval;
+    indexInterval = setInterval(reload, 1000);
+
+
+    function stopLoading() {
+      clearInterval(indexInterval);
+    }
+
+    //Obtener los reportes de un usuario
+    var resultado = [];
+    var depOptions = [];
+
+
 
 
     function doToast(string) {
@@ -1350,6 +1396,8 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     function addPeople() {
       $state.go('app.addPeople');
     };
+
+    reload()
 
   })
 
@@ -1461,8 +1509,11 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
         });
 
     }
+    var count = 0;
 
     function reload() {
+      console.log(count)
+      count++
       getAssignedTickets();
       getNewTickets();
       getInProcessTickets();
@@ -1528,6 +1579,14 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
       $state.go('app.addTicket');
     };
 
+
+    var indexInterval;
+    indexInterval = setInterval(reload, 1000);
+
+
+    function stopLoading() {
+      clearInterval(indexInterval);
+    }
 
     reload()
   })
@@ -1653,11 +1712,11 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
           $rootScope.emptyMessage = ""
           var allTickets = [];
 
-          if (resultado.data.code == 2){
+          if (resultado.data.code == 2) {
             $rootScope.emptyMessage = " <div class='padding grey-text text-center'><img class='padding' src='img/empty2.png' width='45%'> <br> <p>Parece que no hay  ninguna pregunta  por aquí</p><p>si desdeas hacer una, sólo toca el <b>botón verde</b></p></div>   "
 
           }
-       
+
 
           else {
 
@@ -1809,6 +1868,142 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
     //Functions
+    function doLibrarian(userid) {
+      ///modrol/: id /: rol
+      console.log('cambiando rol de universitario ' + userid + ' a bibliotecario')
+      var resultado = [];
+
+      $http.get(site + '/users/modrol/' + userid + '/' + 3).
+        then(function (resultado) {
+          getBibliotecarios()
+          getStudents()
+        });
+    }
+
+    function doStudent(userid) {
+      ///modrol/: id /: rol
+      console.log('cambiando rol de bibliotecario ' + userid + ' a universitario')
+      var resultado = [];
+
+      $http.get(site + '/users/modrol/' + userid + '/' + 1).
+        then(function (resultado) {
+          getBibliotecarios()
+          getStudents()
+        });
+    }
+
+
+
+    function doToast(string) {
+      var toast = $ionicPopup.show({
+        title: string,
+        buttons: [
+          { text: 'OK' }
+        ]
+      });
+
+      toast.then(function (res) {
+        //Do something
+      });
+    }
+
+    function goToRes() {
+      $state.go('app.res')
+    }
+
+
+
+  })
+
+  .controller('asignarCtrl', function (ionicToast, $scope, $stateParams, $state, $http, $ionicViewSwitcher, $rootScope, $ionicPopup, $ionicActionSheet) {
+    var vm = this;
+
+    getBibliotecarios()
+    getStudents()
+
+    function getBibliotecarios() {
+      var resultado = [];
+
+      $http.get(site + '/users/getLibrarians').
+        then(function (resultado) {
+
+          //There was a problem getting the users from the database
+          if (resultado.data.code == 2)
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
+
+          //All the users were bring succesfully
+          else {
+            $scope.bibliotecarios = resultado.data.users;
+            console.log('resultado.data.users', resultado.data.users)
+          }
+        });
+    }
+
+    function getStudents() {
+      var resultado = [];
+
+      $http.get(site + '/users/getStudents').
+        then(function (resultado) {
+
+          //There was a problem getting the users from the database
+          if (resultado.data.code == 2)
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
+
+          //All the users were bring succesfully
+          else {
+            $scope.students = resultado.data.users;
+            console.log('resultado.data.users', resultado.data.users)
+          }
+        });
+    }
+
+
+    //Declarations of functions
+    vm.goToRes = goToRes;
+    vm.doLibrarian = doLibrarian;
+
+    vm.doStudent = doStudent;
+
+    vm.asignar = asignar;
+
+    function goToTicket() {
+      $state.go('app.res-detail', { chatId: $rootScope.ticketAAsignar});
+    }
+
+    vm.goToTicket = goToTicket;
+
+
+
+    //Functions
+
+    function asignar(userid) {
+      var resultado = [];
+      $http.get(site + '/tickets/mod/status/' + $rootScope.ticketAAsignar + '/2').
+        then(function (resultado) {
+          if (resultado.data.code == 2) {
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
+          }
+
+          else {
+            
+          }
+        });
+    
+     
+      $http.get(site + '/tickets/mod/librarian/' + $rootScope.ticketAAsignar + '/' + userid).
+        then(function (resultado) {
+          if (resultado.data.code == 1) {
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
+            goToTicket()
+          }
+
+          else {
+            ionicToast.show(resultado.data.msg, 'top', false, 2500);
+            goToTicket()
+          }
+        });
+    }
+
     function doLibrarian(userid) {
       ///modrol/: id /: rol
       console.log('cambiando rol de universitario ' + userid + ' a bibliotecario')

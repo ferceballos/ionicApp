@@ -1,27 +1,76 @@
-<ion-view hide-nav-bar="true">
-    <div class="bar item-input-inset">
-        <label class="item-input-wrapper text-center">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Buscar" ng-model="vm.searchTicket">
-        </label>
-
+<ion-view cache-view="false" hide-nav-bar="true">
+    <div class="bar bar-header bar-light">
+        <h1 class="title">Preguntas</h1>
     </div>
-    <ion-content>
-        <div class="content">
-            <h1>Loggeado como administador</h1>
-            <div class="list">
 
-                <!-- ng-repeat="x in names | filter : 'i'" -->
-                <a class="item item-avatar"  href="#/app/uni/{{option.folio}}" ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket | orderBy:'-folio'">
-                    <!-- 5, 2, 6, 3 -->
-                    <img src="img/tickets/6.png">
-                    <h2>{{option.asunto}}</h2>
-                    <p>{{option.init}}</p>
-                </a>
+
+    <ion-content class="bgr-light-bluegr">
+
+        <div class="content">
+
+            <div id="top-part" class="bgr-bluegr padding">
+                <div class="padding">
+                    <img src="img/chat/prim.png" class="center">
+                </div>
+            </div>
+
+            <div id="bot-part" class="padding">
+
+
+
+                <div class="list">
+                    <div class="list-inset card">
+                        <label class="item item-input">
+                            <i class="icon ion-search placeholder-icon"></i>
+                            <input type="search" placeholder="Buscar tickets" ng-model="vm.searchUsers">
+
+                        </label>
+                    </div>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-android-open" style="margin-right:1%"></i>
+                        NUEVOS
+                    </div>
+
+                    <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in newTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                        <!-- 5, 2, 6, 3 -->
+                        <img src="img/tickets/6.png">
+                        <p class="grey-strng b">{{ticket.peticion}}</p>
+                        <p>{{ticket.init}}</p>
+                    </a>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-chatbox-working" style="margin-right:1%"></i>
+                        EN PROCESO
+                    </div>
+
+
+                    <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in doingTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                        <!-- 5, 2, 6, 3 -->
+                        <img src="img/tickets/6.png">
+                        <p class="grey-strng b">{{ticket.peticion}}</p>
+                        <p>{{ticket.init}}</p>
+                    </a>
+
+                    <div class="item item-divider">
+                        <i class="icon ion-android-done" style="margin-right:1%"></i>
+                        CERRADOS
+                    </div>
+
+                    <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in doneTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                        <!-- 5, 2, 6, 3 -->
+                        <img src="img/tickets/6.png">
+                        <p class="grey-strng b">{{ticket.peticion}}</p>
+                        <p>{{ticket.init}}</p>
+                    </a>
+
+
+
+
+                </div>
+
             </div>
         </div>
     </ion-content>
-    <button class=" button button-float" ng-click="vm.showAddSheet()">
-        <i class="icon ion-navicon-round"></i>
-    </button>
+
 </ion-view>

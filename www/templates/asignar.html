@@ -1,23 +1,18 @@
 <ion-view hide-nav-bar="true">
     <div class="bar bar-header ">
-        <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToRes()"></button>
-        <div class="h1 title bluedeep">Permisos</div>
-
+        <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToTicket()"></button>
+        <div class="h1 title bluedeep">Asignar</div>
     </div>
 
     <ion-content class="bgr-light-bluegr">
-
         <div class="content">
-
             <div id="top-part" class="bgr-bluegr padding">
                 <div class="padding">
-                    <img src="img/school.svg" width="45%" class="center">
+                    <img src="img/assign/1.png" class="center">
                 </div>
             </div>
 
             <div id="bot-part" class="padding">
-
-
 
                 <div class="list">
                     <div class="list-inset card">
@@ -29,8 +24,7 @@
                     </div>
 
                     <div class="item item-divider">
-                        <i class="icon ion-university"></i>
-                        Bibliotecarios
+                        Asignar a
                     </div>
 
                     <div class="item row" ng-repeat="user in bibliotecarios | filter : vm.searchUsers">
@@ -42,27 +36,11 @@
 
 
                         <div class="col right">
-                            <button class="smaller assertive button icon ion-android-arrow-down " ng-click="vm.doStudent({{user.id}})"></button>
+                            <button class="smaller big blue button ion-paper-airplane" ng-click="vm.asignar({{user.id}})"></button>
 
                         </div>
                     </div>
 
-                    <div class="item item-divider">
-                        <i class="icon ion-android-person"></i>
-                        Universitarios
-                    </div>
-                    <div class="item row" ng-repeat="user in students | filter : vm.searchUsers">
-                        <div class="col col-80">
-                            <h3 class="grey-text">{{user.name}}</h3>
-                            <p>{{user.mail}} </p>
-                        </div>
-
-
-
-                        <div class="col right">
-                            <button class="smaller calm button icon ion-android-arrow-up " ng-click="vm.doLibrarian({{user.id}})"></button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

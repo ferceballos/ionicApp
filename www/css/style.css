@@ -135,6 +135,18 @@ color: #57A2FA !important;
 .teal{
    background-color:  #00796b !important;
 }
+
+
+.soft{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+1,f4f8fa+98 */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top, #ffffff 1%, #f4f8fa 98%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #ffffff 1%,#f4f8fa 98%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #ffffff 1%,#f4f8fa 98%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f8fa',GradientType=0 ); /* IE6-9 */
+}
+
+
 /* Styling ticket related stuff here */
 
 .b {
@@ -265,6 +277,11 @@ color: #57A2FA !important;
 	display:block;
 	max-width:65%;
 	border-radius:.75rem;
+}
+
+.big
+{
+    font-size: 150% !important;
 }
 
 /* Date Picket Classes */

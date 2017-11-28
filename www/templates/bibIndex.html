@@ -1,6 +1,6 @@
 <ion-view cache-view="false" hide-nav-bar="true">
 <div class="bar bar-header bar-light">
-    <h1 class="title">Preguntas</h1>
+    <h1 class="title">Consultas</h1>
 </div>
 
 
@@ -8,9 +8,9 @@
 
         <div class="content">
 
-            <div id="top-part" class="bgr-bluegr padding">
+            <div id="top-part" class="soft padding">
                 <div class="padding">
-                    <img src="img/chat/prim.png" class="center">
+                    <img src="img/chatting.svg" width="45%" class="center">
                 </div>
             </div>
 
@@ -33,9 +33,9 @@
                     </div>
 
                         <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in assignedTickets | filter : vm.searchUsers | orderBy:'-folio'">                            <!-- 5, 2, 6, 3 -->
-                            <img src="img/tickets/6.png">
-                            <p class="grey-strng b">{{ticket.peticion}}</p>
-                            <p>{{ticket.init}}</p>
+                                                            <img src="img/q.svg">
+                            <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                            <p classs="grey">{{ticket.init}}</p>
                         </a>
 
                     <div class="item item-divider" >
@@ -45,9 +45,9 @@
 
                     <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in newTickets | filter : vm.searchUsers | orderBy:'-folio'">
                         <!-- 5, 2, 6, 3 -->
-                        <img src="img/tickets/6.png">
-                        <p class="grey-strng b">{{ticket.peticion}}</p>
-                        <p>{{ticket.init}}</p>
+                                                    <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
                     </a>
 
                     <div class="item item-divider">
@@ -58,9 +58,9 @@
 
                     <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in doingTickets | filter : vm.searchUsers | orderBy:'-folio'">
                         <!-- 5, 2, 6, 3 -->
-                        <img src="img/tickets/6.png">
-                        <p class="grey-strng b">{{ticket.peticion}}</p>
-                        <p>{{ticket.init}}</p>
+                                            <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
                     </a>
 
                     <div class="item item-divider">
@@ -70,9 +70,9 @@
 
                     <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in doneTickets | filter : vm.searchUsers | orderBy:'-folio'">
                         <!-- 5, 2, 6, 3 -->
-                        <img src="img/tickets/6.png">
-                        <p class="grey-strng b">{{ticket.peticion}}</p>
-                        <p>{{ticket.init}}</p>
+                                                <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
                     </a>
 
 
@@ -94,7 +94,7 @@
             
                 <a class="item item-avatar"  href="#/app/uni/{{option.folio}}" ng-repeat="option in ticketsOfUni.availableOptions | filter:vm.searchTicket | orderBy:'-folio'">
                   
-                    <img src="img/tickets/6.png">
+                                 <img src="img/q.jpeg">
                     <h2>{{option.asunto}}</h2>
                     <p>{{option.init}}</p>
                 </a>

@@ -345,6 +345,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     float: right !important;
 }
 
+.float-left{
+
+    float: left !important;
+}
+
 .valign{
   position: relative;
   

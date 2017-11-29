@@ -1,11 +1,26 @@
 <ion-view hide-nav-bar="true" title="Estadísticas">
-    <div class="bar bar-header">
-        <button class="smaller bluedeep button icon ion-android-arrow-back " ng-click="vm.goToMenu()"></button>
-        <div class="h1 bluedeep title">Estadísticas</div>
-        <button class="smaller bluedeep button icon ion-edit" ng-click="vm.uniEditTi()"></button>
-    </div>
 
-    <ion-content class="bgr-bluegr">
+        <div class="bar botless bar-header ">
+            <div class="h1 title tabsTitle">Estadísticas</div>
+        </div>
+        <div class="tabs-striped topless tabs-top">
+            <div class="tabs">
+                <a class="tab-item" ng-click="vm.goToPermisos()">
+                    <i class="icon ion-ios-people"></i>
+                    Permisos
+                </a>
+                <a class="tab-item" ng-click="vm.goToConsultas()">
+                    <i class="icon ion-clipboard"></i>
+                    Consultas
+                </a>
+                <a class="tab-item active" ng-click="vm.goToStats()">
+                    <i class="icon ion-stats-bars"></i>
+                    Estadísticas
+                </a>
+            </div>
+        </div>
+
+    <ion-content class="bgr-bluegr tabcontent">
         <br>
         <br>
         <center>
@@ -37,8 +52,8 @@
 
             <div class="card">
                 <div class=" padding text-center">
-                    <h4 class="grey-text ">Ultimos tickets</h4>
-                    <p class="grey-text">Realizados en los ultimos seis meses</p>
+                    <h4 class="grey-text ">Ultimas consultas</h4>
+                    <p class="grey-text">Realizadas en el rango establecido</p>
                     <br>
                      
                     <canvas id="line" class="chart chart-line left" chart-series="c1series" chart-data="c1data" chart-labels="c1labels" chart-series="c1series" chart-options="c1options"

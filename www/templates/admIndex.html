@@ -1,16 +1,32 @@
 <ion-view cache-view="false" hide-nav-bar="true">
-    <div class="bar bar-header bar-light">
-        <h1 class="title">Preguntas</h1>
-    </div>
+        <div class="bar botless bar-header ">
+            <div class="h1 title tabsTitle">Consultas</div>
+        </div>
+        <div class="tabs-striped topless tabs-top">
+            <div class="tabs">
+                <a class="tab-item" ng-click="vm.goToPermisos()">
+                    <i class="icon ion-ios-people"></i>
+                    Permisos
+                </a>
+                <a class="tab-item active" ng-click="vm.goToConsultas()">
+                    <i class="icon ion-clipboard"></i>
+                    Consultas
+                </a>
+                <a class="tab-item" ng-click="vm.goToStats()">
+                    <i class="icon ion-stats-bars"></i>
+                    Estadísticas
+                </a>
+            </div>
+        </div>
 
 
-    <ion-content class="bgr-light-bluegr">
+    <ion-content class="bgr-light-bluegr tabcontentt">
 
         <div class="content">
 
-            <div id="top-part" class="bgr-bluegr padding">
+            <div id="top-part" class="soft padding">
                 <div class="padding">
-                    <img src="img/chat/prim.png" class="center">
+                    <img src="img/chatting.svg" width="45%" class="center">
                 </div>
             </div>
 
@@ -27,16 +43,25 @@
                         </label>
                     </div>
 
+
+                    <a class="item item-avatar" href="#/app/res/{{ticket.folio}}" ng-repeat="ticket in assignedTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                        <!-- 5, 2, 6, 3 -->
+                        <img src="img/q.svg">
+
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
+                    </a>
+
                     <div class="item item-divider">
                         <i class="icon ion-android-open" style="margin-right:1%"></i>
                         NUEVOS
                     </div>
 
-                    <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in newTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                    <a class="item item-avatar" href="#/app/adm/{{ticket.folio}}" ng-repeat="ticket in newTickets | filter : vm.searchUsers | orderBy:'-folio'">
                         <!-- 5, 2, 6, 3 -->
-                        <img src="img/tickets/6.png">
-                        <p class="grey-strng b">{{ticket.peticion}}</p>
-                        <p>{{ticket.init}}</p>
+                        <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
                     </a>
 
                     <div class="item item-divider">
@@ -45,11 +70,11 @@
                     </div>
 
 
-                    <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in doingTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                    <a class="item item-avatar" href="#/app/res/{{ticket.folio}}" ng-repeat="ticket in doingTickets | filter : vm.searchUsers | orderBy:'-folio'">
                         <!-- 5, 2, 6, 3 -->
-                        <img src="img/tickets/6.png">
-                        <p class="grey-strng b">{{ticket.peticion}}</p>
-                        <p>{{ticket.init}}</p>
+                        <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
                     </a>
 
                     <div class="item item-divider">
@@ -57,11 +82,11 @@
                         CERRADOS
                     </div>
 
-                    <a class="item item-avatar" href="#/app/bib/{{ticket.folio}}" ng-repeat="ticket in doneTickets | filter : vm.searchUsers | orderBy:'-folio'">
+                    <a class="item item-avatar" href="#/app/res/{{ticket.folio}}" ng-repeat="ticket in doneTickets | filter : vm.searchUsers | orderBy:'-folio'">
                         <!-- 5, 2, 6, 3 -->
-                        <img src="img/tickets/6.png">
-                        <p class="grey-strng b">{{ticket.peticion}}</p>
-                        <p>{{ticket.init}}</p>
+                        <img src="img/q.svg">
+                        <h2 class="grey-strng">{{ticket.peticion}}</h2>
+                        <p classs="grey">{{ticket.init}}</p>
                     </a>
 
 

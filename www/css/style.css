@@ -114,6 +114,15 @@ color: #57A2FA !important;
     text-align: right !important;
 }
 
+
+.push-left{
+    margin-right: 4% !important;
+}
+
+.push-lefter{
+    margin-right: 6% !important;
+}
+
 .divider{
     border-top: solid #cacaca 2px !important;
     width: 60%;
@@ -136,6 +145,24 @@ color: #57A2FA !important;
    background-color:  #00796b !important;
 }
 
+.tabsTitle{
+    color: rgb(75, 138, 216) !important;
+}
+
+.topless{
+    border-top: 0px solid transparent !important;
+}
+
+.botless{
+    border-bottom: 0px solid transparent !important;
+}
+
+.tabcontent{
+    padding-top: 15% !important;
+}
+.tabcontentt{
+    padding-top: 13% !important;
+}
 
 .soft{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+1,f4f8fa+98 */

@@ -145,6 +145,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       //STATES DEL ADMINISTRADOR
       .state('app.adm', {
         url: '/adm',
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/admIndex.html',
@@ -153,12 +154,36 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       })
 
+      .state('app.adm-detail', {
+        url: '/adm/:chatId',
+        cache: false,
+
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/adm-chat-content.html',
+            controller: 'AdmContentCtrl as vm'
+          }
+        }
+      })
+
+      .state('app.admPermisos', {
+        url: '/adm',
+        cache: false,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/admPermisos.html',
+            controller: 'admPermisosCtrl as vm'
+          }
+        }
+      })
+
       .state('app.stats', {
         url: '/stats',
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/admStats.html',
-            controller: 'StatsCtrl'
+            controller: 'StatsCtrl as vm'
           }
         }
       })

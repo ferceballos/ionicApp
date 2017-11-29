@@ -231,7 +231,20 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     }
 
     $scope.showToast = function () {
-      ionicToast.show('This is a toast at the top.', 'top', false, 2500);
+      var nIntervId;
+      nIntervId = setInterval(dataTest, 1000);
+
+      ionicToast.show('Activando numeros de muestra.', 'top', false, 2500);
+    }
+
+    function dataTest() {
+      $scope.tickets = Math.floor((Math.random() * 3000) + 600);
+      $scope.c1data = [[Math.floor((Math.random() * 30) + 1), Math.floor((Math.random() * 50) + 1), Math.floor((Math.random() * 60) + 1), Math.floor((Math.random() * 25) + 1), Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 40) + 1), Math.floor((Math.random() * 100) + 1)]];
+
+      $scope.c2data = [Math.floor((Math.random() * 25) + 1), Math.floor((Math.random() * 40) + 1), Math.floor((Math.random() * 80) + 1)];
+
+      $scope.c3data = [Math.floor((Math.random() * 30) + 1), Math.floor((Math.random() * 60) + 1), Math.floor((Math.random() * 50) + 1), Math.floor((Math.random() * 60) + 1), Math.floor((Math.random() * 100) + 1)];
+      
     }
 
 
@@ -1116,7 +1129,6 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     //Methods declaration
     vm.goToMenu = goToMenu;
     vm.EditTi = EditTi;
-    vm.uniCalificar = uniCalificar;
     vm.sendMessage = sendMessage;
     vm.getMessages = getMessages;
 
@@ -1223,19 +1235,6 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
       stopLoading()
       chatMessages = "";
       $state.go('app.adm');
-    }
-
-    function doToast(string) {
-      var toast = $ionicPopup.show({
-        title: string,
-        buttons: [
-          { text: 'OK' }
-        ]
-      });
-
-      toast.then(function (res) {
-        //Do something
-      });
     }
 
     function getHeaderInformation() {
@@ -1346,30 +1345,6 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
 
 
-          return true;
-        }
-      });
-    }
-
-    function uniCalificar() {
-      $ionicActionSheet.show({
-        titleText: 'Califique el servicio dado', buttons: [{ text: '1' }, { text: '2' }, { text: '3' }, { text: '4' }, { text: '5' },], cancelText: 'Cancel', cancel: function () {
-          console.log('CANCELLED');
-        }, buttonClicked: function (index) {
-          console.log('BUTTON CLICKED', index)
-          var resultado = [];
-
-          console.log('$stateParams.chatId', $stateParams.chatId);
-          $http.get(site + '/tickets/mod/rate/' + $stateParams.chatId + '/' + (index + 1)).
-            then(function (resultado) {
-              if (resultado.data.code == 2) {
-                ionicToast.show(resultado.data.msg, 'top', false, 2500);
-              }
-
-              else {
-                getHeaderInformation()
-              }
-            });
           return true;
         }
       });
@@ -2560,8 +2535,18 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
     function doLogin() {
 
+    if (vm.mail==undefined || vm.mail == "") {
+      ionicToast.show("Introduzca un correo", 'top', false, 2500);
+    }
+
+      else if (vm.pwd == undefined || vm.pwd == "") {
+        ionicToast.show("La contraseña no puede estar vacía", 'top', false, 2500);
+      }
+      else{
+
       mail = vm.mail;
       pwd = vm.pwd;
+      
 
       var resultado = [];
 
@@ -2601,6 +2586,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
               doToast('Ha ocurrido un problema al tratar de obtener su rol')
           }
         });
+      }
     }
   })
 

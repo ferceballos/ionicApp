@@ -1,11 +1,36 @@
 .bgr-calm{
     /*background-image: url("https://s-media-cache-ak0.pinimg.com/originals/9e/5b/d0/9e5bd06721ac2731e4cbd7c0bbf4b761.jpg");*/
     /*background-image: url("../img/blue.jpg");*/
-    background-image: url("https://i.pinimg.com/564x/3c/57/0c/3c570c96285acb3d8033ff51636198c1.jpg"); 
-    background-size: cover;
+   /* background-image: url("https://i.pinimg.com/564x/3c/57/0c/3c570c96285acb3d8033ff51636198c1.jpg"); 
+  */  background-size: cover;
     background-repeat: no-repeat;
+    background-image: url("../img/simple.jpg");
+
+    
+}
+@keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: 100% 0; }
 }
 
+@-webkit-keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: 100% 0; }
+}
+
+.panningclouds{
+    width: 560px; 
+    height: 400px; 
+    background-image: url(../img/bg-clouds.png);
+    background-position: 0px 0px;
+    background-repeat: repeat-x;
+  background-size:cover;
+    -webkit-animation:animatedBackground 50s linear infinite;
+   -moz-animation:animatedBackground 50s linear infinite;
+    -ms-animation:animatedBackground 50s linear infinite;
+     -o-animation:animatedBackground 50s linear infinite;
+        animation:animatedBackground 50s linear infinite;
+}
 .bordered{
       border-radius: 60px !important;
 }

@@ -1,7 +1,7 @@
 <ion-view hide-nav-bar="true">
 
 
-  
+
 
   <ion-content class="bgr-waves">
     <a ng-click="vm.goToLogin()" class="padding grey-text button icon-left ion-android-arrow-back button-clear button-dark"></a>
@@ -14,30 +14,27 @@
       </div>
     </div>
 
-    <div class="list">
+    <div data-ng-init="vm.preFill()" class="list">
+
+      <label class="item item-input">
+        <span class="input-label">Correo</span>
+        <p ng-model="vm.email"></p>
+      </label>
 
       <label class="item item-input">
         <span class="input-label">Nombre</span>
         <input class="grey-text" type="text" ng-model="vm.name">
       </label>
 
-      <label class="item item-input">
-        <span class="input-label">Correo</span>
-        <input class="grey-text" type="text" ng-model="vm.email">
-      </label>
 
-      <label class="item item-input">
-        <span class="input-label">Contraseña</span>
-        <input class="grey-text" type="password" ng-model="vm.pwd">
-      </label>
 
       <label class="item item-input item-select text-left">
         <div class="input-label">
           Dependencia
         </div>
-      <select class="float-left" name="repeatSelect" id="repeatSelect" ng-model="vm.dep">
-        <option ng-repeat="option in select.availableOptions" value="{{option.id}}">{{option.nombre}}</option>
-      </select>
+        <select class="float-left" name="repeatSelect" id="repeatSelect" ng-model="vm.dep">
+          <option ng-repeat="option in select.availableOptions" value="{{option.id}}">{{option.nombre}}</option>
+        </select>
       </label>
 
     </div>
@@ -49,6 +46,6 @@
       </div>
       <br>
     </center>
-    
+
   </ion-content>
 </ion-view>

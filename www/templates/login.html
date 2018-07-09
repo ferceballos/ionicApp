@@ -1,38 +1,30 @@
 <ion-view hide-nav-bar="true">
-<ion-content  class="panningclouds">
-  <br><br><br>
-  <div class="row">
-    <div class="col">
-      <img src="img/chat/7.png" width="25%" class="center">
-      <h1 class="white-text padding text-center">Help.ME</h1>
-      <p class="white-text padding text-center">Cuando lo sabes todo, <b>el límite es el cielo.</b></p>
+  <ion-content class="panningclouds">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col">
+        <img src="img/chat/7.png" width="25%" class="center">
+        <h1 class="white-text padding text-center">Eureka</h1>
+        <p class="white-text padding text-center">Tu ruta a la
+          <b>información.</b>
+        </p>
+      </div>
     </div>
-  </div>
 
-  <br>
-   <form ng-submit="doLogin()">
-  <div class="list">
-    <label class="item item-input">
-      <span class="input-label">Correo</span>
-      <input class="grey-text" type="text" ng-model="vm.mail">
-    </label>
-    <label class="item item-input">
-      <span class="input-label">Contraseña</span>
-      <input class="grey-text" type="password" ng-model="vm.pwd">
-    </label>
-  </div>
-      </form>
-<br><br>
+    <br>
 
-  <center>
+    <br>
+    <br>
 
-    <div>
-      <button class="white-text button button-outline button-light" ng-click="vm.doLogin()">Iniciar sesión</button>
-    </div><br>
-
-    <div>
-      <a class="white-text button button-clear button-light small" ng-click="vm.goToSignup()">¿Aún no tiene cuenta? <b>Regístrese</b></a>
-    </div>
-  </center>
-</ion-content>
+    <center>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      <!--  <div>
+        <a class="white-text button button-clear button-light small" ng-click="vm.goToSignup()">¿Aún no tiene cuenta?
+          <b>Regístrese</b>
+        </a>
+      </div> -->
+    </center>
+  </ion-content>
 </ion-view>

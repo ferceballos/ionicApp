@@ -169,11 +169,6 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
     function goToRes() {
       $state.go('app.res')
     }
-
-
-
-
-
   })
 
 
@@ -244,7 +239,7 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
       $scope.c2data = [Math.floor((Math.random() * 25) + 1), Math.floor((Math.random() * 40) + 1), Math.floor((Math.random() * 80) + 1)];
 
       $scope.c3data = [Math.floor((Math.random() * 30) + 1), Math.floor((Math.random() * 60) + 1), Math.floor((Math.random() * 50) + 1), Math.floor((Math.random() * 60) + 1), Math.floor((Math.random() * 100) + 1)];
-      
+
     }
 
 
@@ -2533,74 +2528,88 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
       $state.go('app.signup');
     }
 
-    function doLogin() {
-
-    if (vm.mail==undefined || vm.mail == "") {
-      ionicToast.show("Introduzca un correo", 'top', false, 2500);
+    function onSignIn(googleUser) {
+      $ionicViewSwitcher.nextDirection('forward');
+      $state.go('app.signup');
+      $scope.signedin = true;
     }
 
-      else if (vm.pwd == undefined || vm.pwd == "") {
-        ionicToast.show("La contraseña no puede estar vacía", 'top', false, 2500);
+
+    window.onSignIn = onSignIn;
+
+
+    function doLogin() {
+
+      if (vm.mail == undefined || vm.mail == "") {
+        ionicToast.show("Introduzca un correo", 'top', false, 2500);
       }
-      else{
 
-      mail = vm.mail;
-      pwd = vm.pwd;
-      
+      /* else if (vm.pwd == undefined || vm.pwd == "") {
+        ionicToast.show("La contraseña no puede estar vacía", 'top', false, 2500);
+      } */
 
-      var resultado = [];
+      else {
 
-      $http.get(site + '/users/login/' + mail + '/' + pwd).
-        then(function (resultado) {
-          vm.mail = undefined;
-          vm.pwd = undefined;
-
-          //El correo no existe en la base de datos
-          if (resultado.data.code != 3)
-            ionicToast.show(resultado.data.msg, 'top', false, 2500);
-          else if (resultado.data.code == 2)
-            ionicToast.show(resultado.data.msg, 'top', false, 2500);
-
-          //Credenciales correctas
-          else if (resultado.data.code == 3) {
-            user = resultado.data.user
+        mail = vm.mail;
+        //pwd = vm.pwd;
 
 
-            //Universitario
-            if (user.rol == 1)
-              $state.go('app.uni')
+        var resultado = [];
 
-            //Responsable
-            else if (user.rol == 2)
-              $state.go('app.res')
+        $http.get(site + '/users/login/' + mail + '/' + pwd).
+          then(function (resultado) {
+            vm.mail = undefined;
+            vm.pwd = undefined;
 
-            //Bibliotecario
-            else if (user.rol == 3)
-              $state.go('app.bib')
+            //El correo no existe en la base de datos
+            if (resultado.data.code != 3)
+              ionicToast.show(resultado.data.msg, 'top', false, 2500);
+            else if (resultado.data.code == 2)
+              ionicToast.show(resultado.data.msg, 'top', false, 2500);
 
-            //Administrador
-            else if (user.rol == 4)
-              $state.go('app.adm')
+            //Credenciales correctas
+            else if (resultado.data.code == 3) {
+              user = resultado.data.user
 
-            else
-              doToast('Ha ocurrido un problema al tratar de obtener su rol')
-          }
-        });
+
+              //Universitario
+              if (user.rol == 1)
+                $state.go('app.uni')
+
+              //Responsable
+              else if (user.rol == 2)
+                $state.go('app.res')
+
+              //Bibliotecario
+              else if (user.rol == 3)
+                $state.go('app.bib')
+
+              //Administrador
+              else if (user.rol == 4)
+                $state.go('app.adm')
+
+              else
+                doToast('Ha ocurrido un problema al tratar de obtener su rol')
+            }
+          });
       }
     }
   })
 
 
   .controller('SignupCtrl', function (ionicToast, $scope, $stateParams, $state, $http, $ionicPopup) {
+
+
+
     var vm = this;
     var names = "", lasts = "", mail = "", pwd = "", dep = "";
     var depOptions = [];
 
 
-
     //Declaración de funciones
     vm.goToLogin = goToLogin;
     vm.doSignup = doSignup;
+    vm.preFill = preFill;
 
     //Funciones
 
@@ -2643,6 +2652,23 @@ angular.module('starter.controllers', ['ionic', 'chart.js', 'ionic-toast', 'ioni
 
     function goToLogin() {
       $state.go('app.login');
+    }
+
+    function preFill() {
+
+      if ($scope.signedin) {
+        /*  $scope.guser = googleUser.getBasicProfile();
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + $scope.guser.getId());
+        console.log('Name: ' + $scope.guser.getName());
+        console.log('Image URL: ' + $scope.guser.getImageUrl());
+        console.log('Email: ' + $scope.guser.getEmail()); */
+
+        vm.name = $scope.guser.getName();
+        vm.email = $scope.guser.getEmail();
+
+      }
+
     }
 
     function doSignup() {
